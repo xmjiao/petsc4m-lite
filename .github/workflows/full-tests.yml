@@ -1,0 +1,52 @@
+# This script runs all the tests on self-hosted nodes with MATLAB.
+# To adapt this script for another numgeomworks repository,
+# you may need to customize the MATLAB commands below.
+
+name: PETSC4M-LITE Full Test
+on:
+  pull_request:
+    branches:
+      - '**'
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  PETSC4M-LITE-CI:
+    strategy:
+      fail-fast: false
+      matrix:
+         os: [[self-hosted,Linux,X64], [self-hosted,macOS,ARM64]]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - run: echo " The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo " This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo " The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Checkout dependencies
+        run: |
+          for dep in $(cat matlab/tests/dependencies.txt)
+          do
+            rm -rf ../${dep}
+            git clone --recurse-submodules https://numgeomciowner:${{ secrets.NUMGEOMCI_GITHUB_TOKEN }}@github.com/numgeomworks/${dep} ../${dep}
+          done
+
+      - run: echo " The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo " The workflow is now ready to test your code on the runner."
+      - name: Run tests
+        run: |  # test
+          (cd matlab && matlab -nodisplay -batch \
+          'build_petsc4m; run tests/testall' 2>&1 | tee ../matlab_output.txt) && \
+          [ -z "$(egrep '  \*\*\*\*\* test|Error (in|using) |Undefined function \S+ for input arguments|Invalid file identifier.' matlab_output.txt 2> /dev/null)" ]
+
+      - name: Check warnings
+        run: |
+          [ "$(egrep -c '^Warning:' matlab_output.txt 2> /dev/null)" = "0" ] || \
+          echo "::warning:: There are $(egrep -c '^Warning:' matlab_output.txt 2> /dev/null) warnings."

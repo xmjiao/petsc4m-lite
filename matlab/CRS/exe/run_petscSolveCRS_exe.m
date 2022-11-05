@@ -25,7 +25,7 @@ end
 save(infile, '-struct', 'm', '-v7');
 
 % Call executable using the system command
-cmd = [' ' mdir 'petscSolveCRS.' exeext ' ' ...
+cmd = ['LD_LIBRARY_PATH= ' mdir 'petscSolveCRS.' exeext ' ' ...
     int2str(nargin) ' ' infile ' ' int2str(nargout) ' ' outfile ' '];
 
 [status, result] = system(cmd, '-echo');
