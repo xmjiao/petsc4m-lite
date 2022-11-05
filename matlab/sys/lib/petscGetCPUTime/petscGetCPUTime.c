@@ -1,5 +1,6 @@
 #include "petscGetCPUTime.h"
 #include "m2c.h"
+#include "petsc4m.h"
 
 static void m2c_error(int varargin_3);
 
