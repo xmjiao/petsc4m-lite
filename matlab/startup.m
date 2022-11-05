@@ -26,4 +26,8 @@ if isempty(getenv('NG_NOCOMPILE'))
     build_petsc4m;
 end
 
+if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ~isempty(getenv('LD_PRELOAD'))
+   init_petsc();
+end
+
 end
