@@ -41,12 +41,24 @@ It will try to find the PETSc installation in the following order:
 NOTES ON PETSC4M-LITE IN MATLAB
 ===============================
 
-When solving larger systems using MATLAB, you may want to pass data
-through memory instead of files. In this case, you must preload BLAS
-and LAPACK libraries and also disable JAVA virtual machine. For example,
+In Octave, PETSC4M-LITE always passes data through memory. To solve larger
+systems in MATLAB, you may also want to pass data through memory. In this
+case, you need to take two steps to resolve potential conflicts of the
+MPI and LAPACK libraries used by MATLAB and PETSc.
+
+First, if you use PETSc distributed with Miniconda/Anaconda on Linux,
+you need to remove its MPI shared objects using the commands
 ```
-LD_PRELOAD=/path/to/blas/libblas.so:/path/to/lapack/liblapack.so matlab -nojvm
+mkdir $CONDA_PREFIX/lib/backup
+mv $CONDA_PREFIX/lib/libmpi*.so* $CONDA_PREFIX/lib/backup
 ```
 
-You can find out the blas and lapack libaries used by PETSc by running
-the command `ldd /path/to/libpetsc*.so`.
+Second, you need to preload the LAPACK shared library and disable the
+desktop environment when starting MATLAB using the command:
+```
+LD_PRELOAD=/path/to/lapack/liblapack.so.3 matlab -nodesktop
+```
+
+You can find out the lapack libaries used by PETSc using the command
+`ldd /path/to/libpetsc*.so | grep lapack`.
+
