@@ -13,29 +13,29 @@ extern void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs
 int readInputArgs(const char *filename, const int nrhs, mxArray *prhs[]) {
     int  i;
     char varname[64];
-    
+
     MATFile *pmat = matOpen(filename, "r");
-    
+
     if (!pmat) {
         fprintf(stderr, "Error in opening input file %s\n", filename);
         return(-1);
     }
-    
+
     for (i=0; i<nrhs; ++i) {
         sprintf(varname, "input_%d", i+1);
         prhs[i] = matGetVariable(pmat, varname);
-        
+
         if (!prhs[i]) {
             fprintf(stderr, "There are only %d variables in input file %s. %d expected.\n", i, filename, nrhs);
             return(-1);
         }
     }
-   
+
     if (matClose(pmat)) {
         fprintf(stderr, "Error closing file %s\n", filename);
         return(-1);
     }
-    
+
     return 0;
 }
 
@@ -43,29 +43,29 @@ int readInputArgs(const char *filename, const int nrhs, mxArray *prhs[]) {
 int writeOuputArgs(const char *filename, const int nOut, mxArray *plhs[]) {
     int  i;
     char varname[64];
-    
+
     MATFile *pmat = matOpen(filename, "w7");
-    
+
     if (!pmat) {
         fprintf(stderr, "Error in opening output file %s\n", filename);
         return(-1);
     }
-    
+
     for (i=0; i<nOut; ++i) {
-        if (!plhs[i]) 
+        if (!plhs[i])
             break;
-        
+
         sprintf(varname, "output_%d", i+1);
         if (matPutVariable(pmat, varname, plhs[i])) {
             fprintf(stderr, "Error writing output %d into file %s\n", i, filename);
             abort();
         }
     }
-    
+
     if (matClose(pmat)) {
         fprintf(stderr, "Error closing file %s\n", filename);
         return(-1);
     }
-    
+
     return 0;
 }
