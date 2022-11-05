@@ -5,7 +5,7 @@ function varargout = gmresPetsc(varargin)
 %    x = gmresPetsc(A, b) solves a sparse linear system using PETSc's GMRES
 %    solver with a right preconditioner. Matrix A can be in MATLAB's built-in
 %    sparse format or in CRS format with fields 'row_ptr', 'col_inds', and 'vals'.
-%     The default preconditioner is ILU0.
+%    The default preconditioner is ILU0.
 %
 %    x = gmresPetsc(A, b, restart)
 %    allows you to specify the restart parameter for GMRES. The default
