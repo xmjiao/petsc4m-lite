@@ -134,7 +134,7 @@ else
 end
 
 [varargout{1:nargout}] = petscSolveCRS(Arows, Acols, PetscScalar(Avals), ...
-    PetscScalar(b), PETSC_KSPGMRES, PetscReal(rtol), maxiter, PETSC_PCHYPRE, 'right', PetscScalar(x0), opts);
+    PetscScalar(b), 'gmres', PetscReal(rtol), maxiter, 'hypre', 'right', PetscScalar(x0), opts);
 end
 
 function test %#ok<DEFNU>

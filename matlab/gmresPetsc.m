@@ -89,7 +89,7 @@ if nargin >= next_index + 6 && ~isempty(varargin{next_index + 6})
 end
 
 [varargout{1:nargout}] = petscSolveCRS(Arows, Acols, PetscScalar(Avals), ...
-    PetscScalar(b), PETSC_KSPGMRES, PetscReal(rtol), maxiter, pctype, 'right', PetscScalar(x0), opts);
+    PetscScalar(b), 'gmres', PetscReal(rtol), maxiter, pctype, 'right', PetscScalar(x0), opts);
 end
 
 function test %#ok<DEFNU>
