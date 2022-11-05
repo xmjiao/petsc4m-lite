@@ -75,7 +75,7 @@ void init_emxArray_from_mxArray(const mxArray *a, emxArray__common *emx,
         for (i=dim; i<mxdim; ++i) {
             if (dims[i]!=1) {
                 M2C_error("m2c:WrongDimension",
-                        "Varialble %s has incorrect dimension.", name);
+                        "Variable %s has incorrect dimension.", name);
             }
         }
         mxdim = dim;
@@ -120,7 +120,7 @@ static void alias_mxArray_to_DataSize(void **data, int dim, int *size,
         for (i=dim; i<mxdim; ++i) {
             if (dims[i]!=1) {
                 M2C_error("m2c:WrongDimension",
-                        "Varialble %s has incorrect dimension.", name);
+                        "Variable %s has incorrect dimension.", name);
             }
         }
         mxdim = dim;
@@ -263,7 +263,7 @@ static void copy_mxArray_to_DataSize(void *data, int dim, int *size,
         for (i=dim; i<mxdim; ++i) {
             if (dims[i]!=1) {
                 M2C_error("m2c:WrongDimension",
-                        "Varialble %s has incorrect dimension.", name);
+                        "Variable %s has incorrect dimension.", name);
             }
         }
         mxdim = dim;

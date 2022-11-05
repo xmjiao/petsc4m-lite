@@ -11,10 +11,10 @@ for i = 1:length(files)
 end
 
 if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ~isempty(getnenv('LD_PRELOAD'))
-    run(fullfile('lib/petscSolveCRS/mex_petscSolveCRS.m'));
+    run(fullfile('CRS/lib/petscSolveCRS/mex_petscSolveCRS.m'));
 else
     % If running with MATLAB with JVM or without LD_PRELOAD, use exe files
-    run(fullfile('lib/petscSolveCRS/build_petscSolveCRS_exe.m'));
+    run(fullfile('CRS/lib/petscSolveCRS/build_petscSolveCRS_exe.m'));
 end
 
 end

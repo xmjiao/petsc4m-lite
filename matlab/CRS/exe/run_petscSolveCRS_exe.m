@@ -2,8 +2,8 @@ function varargout = run_petscSolveCRS_exe(varargin)
 
 % Invoke EXE file by passing variables through MAT files.
 filebase = tempname;
-infile = [filebase '_petscSolveCRS_in' suf];
-outfile = [filebase '_petscSolveCRS_out' suf];
+infile = [filebase '_petscSolveCRS_in.mat'];
+outfile = [filebase '_petscSolveCRS_out.mat'];
 
 mdir = fileparts(which('run_petscSolveCRS_exe.m'));
 if isequal(mdir, pwd)

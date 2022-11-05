@@ -37,7 +37,7 @@ function [x, flag, relres, iter, reshis, times] = petscSolveCRS(varargin)
 %    specific solver, such as PETSC_KSPGMRES, PETSC_KSPBCGS, etc.
 %
 %    petscSolveCRS(Arows, Acols, Avals, b, solver, rtol) uses the given number
-%        of solvers and the relative tolerarance.
+%        of solvers and the relative tolerance.
 %
 %    petscSolveCRS(Arows, Acols, Avals, b, solver, rtol, maxit) solves with
 %        the given relative tolerances and maximum iteration count.
@@ -101,103 +101,66 @@ if isempty(coder.target) && ~exist('OCTAVE_VERSION', 'builtin') && usejava('jvm'
     fprintf('KSP setup took %g seconds and solver took %g seconds\n', times(1), times(2));
     return;
 elseif isempty(coder.target) && ~exist(['petscVecDuplicate.' mexext], 'file')
-    error('You must have built either the executible built when running in MATLAB.');
+    error('You must have built either the executable built when running in MATLAB.');
 end
 
-% Arows = varargin{1};
-% Acols = varargin{2};
-% Avals = varargin{3};
-% b = varargin{4};
-%
+Arows = varargin{1};
+Acols = varargin{2};
+Avals = varargin{3};
+b = varargin{4};
+
 % Setup KSP
-% if nargin<5
-%     solver = '';
-% else
-%     solver = varargin{5};
-% end % Use default
-% if nargin<6
-%     rtol = PetscReal(0);
-% else
-%     rtol = varargin{6};
-% end
-% if nargin<7
-%     maxit = int32(0);
-% else
-%     maxit = varargin{7};
-% end
-% if nargin<8
-%     pctype = '';
-% else
-%     pctype = varargin{8};
-% end
-% if nargin<9
-%     pcopt = '';
-% else
-%     pcopt = varargin{9};
-% end
-%
-% AMat = petscMatCreateAIJFromCRS(Arows, Acols, Avals);
-% bVec = petscVecCreateFromArray(b);
-%
-% if nargin<10 || isempty(varargin{10})
-%     x0Vec = PETSC_NULL_VEC;
-%     xVec = petscVecDuplicate(bVec);
-% else
-%     x0 = varargin{10};
-%     x0Vec = petscVecCreateFromArray(x0);
-%     xVec = x0Vec;
-% end
-%
-% if nargin<11
-%     opts = '';
-% else
-%     opts = varargin{11};
-% end
-%
-% [flag, relres, iter, reshis, times] = petscSolveHdls(AMat, bVec, xVec, solver, ...
-%     PetscScalar(rtol), int32(maxit), pctype, pcopt, x0Vec, opts);
-%
-% petscMatDestroy(AMat);
-% petscVecDestroy(bVec);
-%
-% x = petscVecToArray(xVec);
-% petscVecDestroy(xVec);
-%
-% end
-%
-% function test %#ok<DEFNU>
-% !test
-% !shared A, b, rowptr, colind, vals
-% ! A = sprand(100,100,0.3);
-% ! A = A + speye(100);
-% ! [rowptr, colind, vals] = crs_matrix(A);
-% ! b = rand(100,1);
-%
-% ! [x,flag,relres,iter,reshis,times] = petscSolveCRS(rowptr, colind, vals, b, ...
-% !     PETSC_KSPPREONLY, 1.e-6, int32(100), PETSC_PCLU, PETSC_MATSOLVERUMFPACK);
-% ! assert(norm(b - A*x) < 1.e-10)
-%
-% %!test
-% %! [x,flag,relres,iter,reshis,times] = petscSolveCRS(rowptr, colind, vals, b);
-%
-% %!test
-% %! [x,flag,relres,iter,reshis,times] = petscSolveCRS(rowptr, colind, vals, b, '');
-%
-% %!test
-% %! [x,flag,relres,iter,reshis,times] = petscSolveCRS(rowptr, colind, vals, b, ...
-% %!     '', 1.e-6);
-% %!test
-% %! [x,flag,relres,iter,reshis,times] = petscSolveCRS(rowptr, colind, vals, b, ...
-% %!     PETSC_KSPBCGS, 1.e-6, int32(100));
-% %!test
-% %! [x,flag,relres,iter,reshis,times] = petscSolveCRS(rowptr, colind, vals, b, ...
-% %!     PETSC_KSPTFQMR, 1.e-6, int32(100));
-% %!test
-% %! [x,flag,relres,iter,reshis,times] = petscSolveCRS(rowptr, colind, vals, b, ...
-% %!     PETSC_KSPBCGS, 1.e-10, int32(10), PETSC_PCJACOBI, 'right', ...
-% %!     zeros(0,1), '-ksp_monitor_true_residual');
-% %!test
-% %! [x,flag,relres,iter,reshis,times] = petscSolveCRS(rowptr, colind, vals, b, ...
-% %!     PETSC_KSPBCGS, 1.e-6, int32(100), PETSC_PCILU, '');
-%
-% end
+if nargin<5
+    solver = '';
+else
+    solver = varargin{5};
+end % Use default
+if nargin<6
+    rtol = PetscReal(0);
+else
+    rtol = varargin{6};
+end
+if nargin<7
+    maxit = int32(0);
+else
+    maxit = varargin{7};
+end
+if nargin<8
+    pctype = '';
+else
+    pctype = varargin{8};
+end
+if nargin<9
+    pcopt = '';
+else
+    pcopt = varargin{9};
+end
+
+AMat = petscMatCreateAIJFromCRS(Arows, Acols, Avals);
+bVec = petscVecCreateFromArray(b);
+
+if nargin<10 || isempty(varargin{10})
+    x0Vec = PETSC_NULL_VEC;
+    xVec = petscVecDuplicate(bVec);
+else
+    x0 = varargin{10};
+    x0Vec = petscVecCreateFromArray(x0);
+    xVec = x0Vec;
+end
+
+if nargin<11
+    opts = '';
+else
+    opts = varargin{11};
+end
+
+[flag, relres, iter, reshis, times] = petscSolveHdls(AMat, bVec, xVec, solver, ...
+    PetscScalar(rtol), int32(maxit), pctype, pcopt, x0Vec, opts);
+
+petscMatDestroy(AMat);
+petscVecDestroy(bVec);
+
+x = petscVecToArray(xVec);
+petscVecDestroy(xVec);
+
+end
