@@ -10,6 +10,10 @@ olddir = pwd;
 cleanup = onCleanup(@()cd(olddir));
 cd(petsc4m_root);
 
+if ~exist('mtest.m', 'file') || ~exist('grep_file.m', 'file')
+    run ../../momp2cpp/startup.m
+end
+
 if isempty(varargin)
     files = grep_files('./*.m', '\n%!test');
 else
@@ -18,7 +22,7 @@ end
 
 for i = 1:length(files)
     fprintf(1, 'Testing %s:\n', files{i});
-    [srcdir, file] = fileparts(files{i});
+    [srcdir, ~] = fileparts(files{i});
     if ~isempty(srcdir); cd(srcdir); end
     mtest(files{i});
 end
