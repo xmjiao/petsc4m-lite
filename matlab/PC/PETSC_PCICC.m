@@ -3,5 +3,5 @@ function val = PETSC_PCICC
 
 coder.inline('always');
 
-val = 'cicc';
+val = 'icc';
 end

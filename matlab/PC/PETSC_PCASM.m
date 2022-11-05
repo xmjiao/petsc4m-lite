@@ -3,5 +3,5 @@ function val = PETSC_PCASM
 
 coder.inline('always');
 
-val = 'casm';
+val = 'asm';
 end

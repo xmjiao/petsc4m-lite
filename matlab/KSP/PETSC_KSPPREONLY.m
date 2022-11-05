@@ -3,5 +3,5 @@ function val = PETSC_KSPPREONLY
 
 coder.inline('always');
 
-val = 'sppreonly';
+val = 'preonly';
 end

@@ -3,5 +3,5 @@ function val = PETSC_PCSVD
 
 coder.inline('always');
 
-val = 'csvd';
+val = 'svd';
 end

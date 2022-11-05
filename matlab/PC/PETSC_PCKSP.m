@@ -3,5 +3,5 @@ function val = PETSC_PCKSP
 
 coder.inline('always');
 
-val = 'cksp';
+val = 'ksp';
 end

@@ -3,5 +3,5 @@ function val = PETSC_KSPBCGS
 
 coder.inline('always');
 
-val = 'spbcgs';
+val = 'bcgs';
 end

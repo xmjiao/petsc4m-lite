@@ -3,5 +3,5 @@ function val = PETSC_KSPQMRCGS
 
 coder.inline('always');
 
-val = 'spqmrcgs';
+val = 'qmrcgs';
 end

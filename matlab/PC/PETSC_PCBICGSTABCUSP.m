@@ -3,5 +3,5 @@ function val = PETSC_PCBICGSTABCUSP
 
 coder.inline('always');
 
-val = 'cbicgstabcusp';
+val = 'bicgstabcusp';
 end

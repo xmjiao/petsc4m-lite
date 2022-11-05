@@ -3,5 +3,5 @@ function val = PETSC_PCILU
 
 coder.inline('always');
 
-val = 'cilu';
+val = 'ilu';
 end

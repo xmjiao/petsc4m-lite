@@ -3,5 +3,5 @@ function val = PETSC_PCGASM
 
 coder.inline('always');
 
-val = 'cgasm';
+val = 'gasm';
 end

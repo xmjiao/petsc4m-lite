@@ -3,5 +3,5 @@ function val = PETSC_PCSPAI
 
 coder.inline('always');
 
-val = 'cspai';
+val = 'spai';
 end

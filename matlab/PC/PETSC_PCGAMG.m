@@ -3,5 +3,5 @@ function val = PETSC_PCGAMG
 
 coder.inline('always');
 
-val = 'cgamg';
+val = 'gamg';
 end

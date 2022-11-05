@@ -3,5 +3,5 @@ function val = PETSC_PCHYPRE
 
 coder.inline('always');
 
-val = 'chypre';
+val = 'hypre';
 end

@@ -3,5 +3,5 @@ function val = PETSC_PCSOR
 
 coder.inline('always');
 
-val = 'csor';
+val = 'sor';
 end

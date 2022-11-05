@@ -3,5 +3,5 @@ function val = PETSC_PCCOMPOSITE
 
 coder.inline('always');
 
-val = 'ccomposite';
+val = 'composite';
 end

@@ -3,5 +3,5 @@ function val = PETSC_KSPMINRES
 
 coder.inline('always');
 
-val = 'spminres';
+val = 'minres';
 end

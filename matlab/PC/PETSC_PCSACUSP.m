@@ -3,5 +3,5 @@ function val = PETSC_PCSACUSP
 
 coder.inline('always');
 
-val = 'csacusp';
+val = 'sacusp';
 end

@@ -3,5 +3,5 @@ function val = PETSC_PCGALERKIN
 
 coder.inline('always');
 
-val = 'cgalerkin';
+val = 'galerkin';
 end

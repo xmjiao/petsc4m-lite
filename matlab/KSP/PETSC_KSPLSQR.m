@@ -3,5 +3,5 @@ function val = PETSC_KSPLSQR
 
 coder.inline('always');
 
-val = 'splsqr';
+val = 'lsqr';
 end

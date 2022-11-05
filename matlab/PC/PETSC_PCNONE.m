@@ -3,5 +3,5 @@ function val = PETSC_PCNONE
 
 coder.inline('always');
 
-val = 'cnone';
+val = 'none';
 end

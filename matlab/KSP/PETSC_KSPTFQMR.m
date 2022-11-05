@@ -3,5 +3,5 @@ function val = PETSC_KSPTFQMR
 
 coder.inline('always');
 
-val = 'sptfqmr';
+val = 'tfqmr';
 end

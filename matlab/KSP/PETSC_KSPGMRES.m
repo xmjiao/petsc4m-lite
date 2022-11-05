@@ -3,5 +3,5 @@ function val = PETSC_KSPGMRES
 
 coder.inline('always');
 
-val = 'spgmres';
+val = 'gmres';
 end

@@ -3,5 +3,5 @@ function val = PETSC_PCAINVCUSP
 
 coder.inline('always');
 
-val = 'cainvcusp';
+val = 'ainvcusp';
 end

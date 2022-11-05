@@ -3,5 +3,5 @@ function val = PETSC_PCMG
 
 coder.inline('always');
 
-val = 'cmg';
+val = 'mg';
 end

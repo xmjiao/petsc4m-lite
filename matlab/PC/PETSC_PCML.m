@@ -3,5 +3,5 @@ function val = PETSC_PCML
 
 coder.inline('always');
 
-val = 'cml';
+val = 'ml';
 end

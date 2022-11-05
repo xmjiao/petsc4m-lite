@@ -3,5 +3,5 @@ function val = PETSC_PCLSC
 
 coder.inline('always');
 
-val = 'clsc';
+val = 'lsc';
 end

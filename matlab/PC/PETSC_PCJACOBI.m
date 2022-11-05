@@ -3,5 +3,5 @@ function val = PETSC_PCJACOBI
 
 coder.inline('always');
 
-val = 'cjacobi';
+val = 'jacobi';
 end

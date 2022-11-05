@@ -3,5 +3,5 @@ function val = PETSC_PCCHOLESKY
 
 coder.inline('always');
 
-val = 'ccholesky';
+val = 'cholesky';
 end
