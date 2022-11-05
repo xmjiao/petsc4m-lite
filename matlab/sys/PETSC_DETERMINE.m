@@ -1,4 +1,5 @@
-function val = PETSC_DETERMINE% Obtain PETSC constant PETSC_DETERMINE
+function val = PETSC_DETERMINE
+% Obtain PETSC constant PETSC_DETERMINE
 
 coder.inline('always');
 

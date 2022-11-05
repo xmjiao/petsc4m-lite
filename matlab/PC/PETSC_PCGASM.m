@@ -1,6 +1,7 @@
-function val = PETSC_PCGASM% Obtain PETSC constant PCGASM
+function val = PETSC_PCGASM
+% Obtain PETSC constant PCGASM
 
 coder.inline('always');
 
-val = petscGetString('PCGASM');
+val = 'cgasm';
 end

@@ -1,6 +1,7 @@
-function val = PETSC_PCILU% Obtain PETSC constant PCILU
+function val = PETSC_PCILU
+% Obtain PETSC constant PCILU
 
 coder.inline('always');
 
-val = petscGetString('PCILU');
+val = 'cilu';
 end

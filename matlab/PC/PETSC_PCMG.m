@@ -1,6 +1,7 @@
-function val = PETSC_PCMG% Obtain PETSC constant PCMG
+function val = PETSC_PCMG
+% Obtain PETSC constant PCMG
 
 coder.inline('always');
 
-val = petscGetString('PCMG');
+val = 'cmg';
 end

@@ -1,4 +1,5 @@
-function val = PETSC_TRUE% Obtain PETSC constant PETSC_TRUE
+function val = PETSC_TRUE
+% Obtain PETSC constant PETSC_TRUE
 
 coder.inline('always');
 

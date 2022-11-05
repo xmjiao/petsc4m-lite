@@ -1,6 +1,7 @@
-function val = PETSC_PCBICGSTABCUSP% Obtain PETSC constant PCBICGSTABCUSP
+function val = PETSC_PCBICGSTABCUSP
+% Obtain PETSC constant PCBICGSTABCUSP
 
 coder.inline('always');
 
-val = petscGetString('PCBICGSTABCUSP');
+val = 'cbicgstabcusp';
 end

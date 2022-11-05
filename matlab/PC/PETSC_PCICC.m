@@ -1,6 +1,7 @@
-function val = PETSC_PCICC% Obtain PETSC constant PCICC
+function val = PETSC_PCICC
+% Obtain PETSC constant PCICC
 
 coder.inline('always');
 
-val = petscGetString('PCICC');
+val = 'cicc';
 end

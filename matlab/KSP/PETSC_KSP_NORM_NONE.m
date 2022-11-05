@@ -1,4 +1,5 @@
-function val = PETSC_KSP_NORM_NONE% Obtain PETSC constant KSP_NORM_NONE
+function val = PETSC_KSP_NORM_NONE
+% Obtain PETSC constant KSP_NORM_NONE
 
 coder.inline('always');
 

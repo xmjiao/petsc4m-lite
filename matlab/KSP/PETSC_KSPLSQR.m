@@ -1,6 +1,7 @@
-function val = PETSC_KSPLSQR% Obtain PETSC constant KSPLSQR
+function val = PETSC_KSPLSQR
+% Obtain PETSC constant KSPLSQR
 
 coder.inline('always');
 
-val = petscGetString('KSPLSQR');
+val = 'splsqr';
 end
