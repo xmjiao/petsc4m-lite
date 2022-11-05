@@ -76,6 +76,7 @@ end
 if contains(PETSC_DIR, 'conda')
     PCC = 'cc';
     CXX = 'c++';
+    LIBEXTRA = '';
 else
     LIBEXTRA = '-lcurl';
 end
