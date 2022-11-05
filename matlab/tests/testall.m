@@ -11,7 +11,7 @@ cleanup = onCleanup(@()cd(olddir));
 cd(petsc4m_root);
 
 if ~exist('mtest.m', 'file') || ~exist('grep_file.m', 'file')
-    run ../../momp2cpp/startup.m
+    addpath ../../momp2cpp/utils
 end
 
 if isempty(varargin)
