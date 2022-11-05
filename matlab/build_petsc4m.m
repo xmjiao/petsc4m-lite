@@ -10,10 +10,9 @@ for i = 1:length(files)
     run(fullfile('sys', 'lib', base, ['mex_', base, '.m']));
 end
 
-if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm')
+if use_mexfiles
     run(fullfile('CRS/lib/petscSolveCRS/mex_petscSolveCRS.m'));
 else
-    % If running with MATLAB with JVM, use exe files
     run(fullfile('CRS/lib/petscSolveCRS/build_petscSolveCRS_exe.m'));
 end
 

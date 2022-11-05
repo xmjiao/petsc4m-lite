@@ -11,13 +11,13 @@ addpath(fullfile(petsc4m_root, 'KSP'));
 addpath(fullfile(petsc4m_root, 'PC'));
 addpath(fullfile(petsc4m_root, 'CRS'));
 
-if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm')
-    % If running in Octave or in MATLAB without JVM, use mex files
+if use_mexfiles
+    % If running in Octave or in MATLAB without desktop, use mex files
     mexdir = fullfile(petsc4m_root, 'CRS', 'mex');
     if ~isfolder(mexdir); mkdir(mexdir); end
     addpath(mexdir);
 else
-    % If running with MATLAB with JVM, use exe files
+    % If running with MATLAB with desktop, use exe files
     addpath(fullfile(petsc4m_root, 'CRS', 'exe'));
 end
 
@@ -26,7 +26,7 @@ if isempty(getenv('NG_NOCOMPILE'))
     build_petsc4m;
 end
 
-if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm')
+if use_mexfiles
    init_petsc();
 end
 
