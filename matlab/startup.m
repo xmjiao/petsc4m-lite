@@ -11,7 +11,7 @@ addpath(fullfile(petsc4m_root, 'KSP'));
 addpath(fullfile(petsc4m_root, 'PC'));
 addpath(fullfile(petsc4m_root, 'CRS'));
 
-if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ~isempty(getnenv('LD_PRELOAD'))
+if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ~isempty(getenv('LD_PRELOAD'))
     % If running in Octave or in MATLAB without JVM and with LD_PRELOAD, use mex files
     addpath(fullfile(petsc4m_root, 'CRS', 'mex'));
 else
