@@ -5,6 +5,8 @@ filebase = tempname;
 infile = [filebase '_petscSolveCRS_in.mat'];
 outfile = [filebase '_petscSolveCRS_out.mat'];
 
+cleanup = onCleanup(@()delete([filebase  '*.mat']));
+
 mdir = fileparts(which('run_petscSolveCRS_exe.m'));
 if isequal(mdir, pwd)
     mdir = './';
@@ -45,10 +47,5 @@ for i = 1:nargout
         error(['Failed to read in output variable ' int2str(i)]);
     end
 end
-
-% Delete MAT files
-clear('m');
-if exist(infile, 'file'); delete(infile); end
-if exist(outfile, 'file'); delete(outfile); end
 
 end
