@@ -59,7 +59,6 @@ static void b_petscKSPDriver(KSP ksp, Vec b, Vec x, double rtol, int maxits,
 {
   static const char b_cv[5] = {'r', 'i', 'g', 'h', 't'};
   KSPType b_type;
-  MPI_Comm comm;
   PC pc;
   PCType c_type;
   PetscObject t_obj;
@@ -67,10 +66,10 @@ static void b_petscKSPDriver(KSP ksp, Vec b, Vec x, double rtol, int maxits,
   emxArray_char_T *side;
   double abstol;
   double b_rtol;
+  double b_t;
   double bnrm;
   double dtol;
   double res;
-  double secs;
   double t;
   double *reshis_data;
   int b_maxits;
@@ -82,9 +81,8 @@ static void b_petscKSPDriver(KSP ksp, Vec b, Vec x, double rtol, int maxits,
   type = (NORM_2);
   VecNorm(b, type, &bnrm);
   t_obj = (PetscObject)(ksp);
-  PetscObjectGetComm(t_obj, &comm);
-  MPI_Barrier(comm);
-  t = MPI_Wtime();
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&t);
   if (maxits == 0) {
     maxits = (PETSC_DEFAULT);
   }
@@ -104,8 +102,9 @@ static void b_petscKSPDriver(KSP ksp, Vec b, Vec x, double rtol, int maxits,
   KSPSetResidualHistory(ksp, NULL, maxits, type);
   KSPSetInitialGuessNonzero(ksp, (int)b_b);
   KSPSolve(ksp, b, x);
-  MPI_Barrier(comm);
-  secs = MPI_Wtime();
+  t_obj = (PetscObject)(ksp);
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&b_t);
   KSPGetConvergedReason(ksp, flag);
   KSPGetResidualNorm(ksp, &res);
   KSPGetIterationNumber(ksp, iter);
@@ -176,7 +175,7 @@ static void b_petscKSPDriver(KSP ksp, Vec b, Vec x, double rtol, int maxits,
     reshis_data[type] = 0.0;
   }
   memcpy(&reshis_data[0], a, na << 3);
-  *b_time = secs - t;
+  *b_time = b_t - t;
 }
 
 static void b_petscKSPSetup(Mat Amat, const emxArray_char_T *ksptype,
@@ -186,13 +185,12 @@ static void b_petscKSPSetup(Mat Amat, const emxArray_char_T *ksptype,
 {
   static const char cv1[5] = {'r', 'i', 'g', 'h', 't'};
   static const char b_cv[4] = {'l', 'e', 'f', 't'};
-  MPI_Comm comm;
   MPI_Comm t_comm;
   PC t_pc;
   PetscObject t_obj;
   emxArray_char_T *ksptype0;
   emxArray_char_T *pctype0;
-  double secs;
+  double b_t;
   double t;
   int i;
   int k;
@@ -333,13 +331,13 @@ static void b_petscKSPSetup(Mat Amat, const emxArray_char_T *ksptype,
   }
   KSPSetFromOptions(*ksp);
   t_obj = (PetscObject)(*ksp);
-  PetscObjectGetComm(t_obj, &comm);
-  MPI_Barrier(comm);
-  t = MPI_Wtime();
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&t);
   KSPSetUp(*ksp);
-  MPI_Barrier(comm);
-  secs = MPI_Wtime();
-  *b_time = secs - t;
+  t_obj = (PetscObject)(*ksp);
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&b_t);
+  *b_time = b_t - t;
 }
 
 static void c_m2c_printf(double varargin_2, double varargin_3)
@@ -397,18 +395,17 @@ static void petscKSPDriver(KSP ksp, Vec b, Vec x, Vec x0, int *flag,
 {
   static const char b_cv[5] = {'r', 'i', 'g', 'h', 't'};
   KSPType b_type;
-  MPI_Comm comm;
   PC pc;
   PCType c_type;
   PetscObject t_obj;
   const PetscReal *a;
   emxArray_char_T *side;
   double abstol;
+  double b_t;
   double bnrm;
   double dtol;
   double res;
   double rtol;
-  double secs;
   double t;
   double *reshis_data;
   int b_x;
@@ -421,9 +418,8 @@ static void petscKSPDriver(KSP ksp, Vec b, Vec x, Vec x0, int *flag,
   type = (NORM_2);
   VecNorm(b, type, &bnrm);
   t_obj = (PetscObject)(ksp);
-  PetscObjectGetComm(t_obj, &comm);
-  MPI_Barrier(comm);
-  t = MPI_Wtime();
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&t);
   maxits = (PETSC_DEFAULT);
   type = (PETSC_DEFAULT);
   b_x = (PETSC_DEFAULT);
@@ -438,8 +434,9 @@ static void petscKSPDriver(KSP ksp, Vec b, Vec x, Vec x0, int *flag,
   KSPSetResidualHistory(ksp, NULL, maxits, type);
   KSPSetInitialGuessNonzero(ksp, (int)b_b);
   KSPSolve(ksp, b, x);
-  MPI_Barrier(comm);
-  secs = MPI_Wtime();
+  t_obj = (PetscObject)(ksp);
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&b_t);
   KSPGetConvergedReason(ksp, flag);
   KSPGetResidualNorm(ksp, &res);
   KSPGetIterationNumber(ksp, iter);
@@ -509,18 +506,17 @@ static void petscKSPDriver(KSP ksp, Vec b, Vec x, Vec x0, int *flag,
     reshis_data[type] = 0.0;
   }
   memcpy(&reshis_data[0], a, na << 3);
-  *b_time = secs - t;
+  *b_time = b_t - t;
 }
 
 static void petscKSPSetup(Mat Amat, const emxArray_char_T *ksptype, KSP *ksp,
                           double *b_time)
 {
-  MPI_Comm comm;
   MPI_Comm t_comm;
   PC t_pc;
   PetscObject t_obj;
   emxArray_char_T *ksptype0;
-  double secs;
+  double b_t;
   double t;
   int i;
   int loop_ub;
@@ -564,13 +560,13 @@ static void petscKSPSetup(Mat Amat, const emxArray_char_T *ksptype, KSP *ksp,
   KSPSetPCSide(*ksp, loop_ub);
   KSPSetFromOptions(*ksp);
   t_obj = (PetscObject)(*ksp);
-  PetscObjectGetComm(t_obj, &comm);
-  MPI_Barrier(comm);
-  t = MPI_Wtime();
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&t);
   KSPSetUp(*ksp);
-  MPI_Barrier(comm);
-  secs = MPI_Wtime();
-  *b_time = secs - t;
+  t_obj = (PetscObject)(*ksp);
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&b_t);
+  *b_time = b_t - t;
 }
 
 static Mat petscMatCreateAIJFromCRS(const emxArray_int32_T *row_ptr,
@@ -1029,7 +1025,6 @@ void petscSolveCRS_4args(const emxArray_int32_T *Arows,
                          int *iter, emxArray_real_T *reshis, double times[2])
 {
   KSP ksp;
-  MPI_Comm comm;
   MPI_Comm t_comm;
   Mat AMat;
   Vec bVec;
@@ -1081,7 +1076,7 @@ void petscSolveCRS_4args(const emxArray_int32_T *Arows,
   Mat t_mat;
   PC t_pc;
   PetscObject t_obj;
-  double secs;
+  double b_t;
   double t;
   int iroa;
   iroa = (INSERT_VALUES);
@@ -1098,15 +1093,15 @@ void petscSolveCRS_4args(const emxArray_int32_T *Arows,
   KSPSetPCSide(ksp, yk);
   KSPSetFromOptions(ksp);
   t_obj = (PetscObject)(ksp);
-  PetscObjectGetComm(t_obj, &comm);
-  MPI_Barrier(comm);
-  t = MPI_Wtime();
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&t);
   KSPSetUp(ksp);
-  MPI_Barrier(comm);
-  secs = MPI_Wtime();
+  t_obj = (PetscObject)(ksp);
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&b_t);
   petscKSPDriver(ksp, bVec, xVec, NULL, flag, relres, iter, reshis,
                  &time_solve);
-  times[0] = secs - t;
+  times[0] = b_t - t;
   times[1] = time_solve;
   t_ksp = ksp;
   KSPDestroy(&t_ksp);
@@ -1274,10 +1269,10 @@ void petscSolveCRS_6args(const emxArray_int32_T *Arows,
   static const char b_cv[5] = {'r', 'i', 'g', 'h', 't'};
   KSP ksp;
   KSPType type;
-  MPI_Comm comm;
   Mat AMat;
   PC pc;
   PCType b_type;
+  PetscObject t_obj;
   const PetscReal *a;
   Vec bVec;
   Vec t_vec;
@@ -1289,10 +1284,10 @@ void petscSolveCRS_6args(const emxArray_int32_T *Arows,
   const double *b_data;
   double abstol;
   double b_rtol;
+  double b_t;
   double bnrm;
   double dtol;
   double res;
-  double secs;
   double t;
   double time_setup;
   double *reshis_data;
@@ -1339,7 +1334,6 @@ void petscSolveCRS_6args(const emxArray_int32_T *Arows,
   for (yk = 0; yk < b_n; yk++) {
     idx_data[yk] = y_data[yk];
   }
-  PetscObject t_obj;
   int iroa;
   iroa = (INSERT_VALUES);
   VecSetValues(bVec, b->size[0], &idx_data[0], &b_data[0], iroa);
@@ -1351,9 +1345,8 @@ void petscSolveCRS_6args(const emxArray_int32_T *Arows,
   b_n = (NORM_2);
   VecNorm(bVec, b_n, &bnrm);
   t_obj = (PetscObject)(ksp);
-  PetscObjectGetComm(t_obj, &comm);
-  MPI_Barrier(comm);
-  t = MPI_Wtime();
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&t);
   maxits = (PETSC_DEFAULT);
   if (rtol == 0.0) {
     b_n = (PETSC_DEFAULT);
@@ -1371,8 +1364,9 @@ void petscSolveCRS_6args(const emxArray_int32_T *Arows,
   KSPSetResidualHistory(ksp, NULL, maxits, b_n);
   KSPSetInitialGuessNonzero(ksp, (int)b_b);
   KSPSolve(ksp, bVec, xVec);
-  MPI_Barrier(comm);
-  secs = MPI_Wtime();
+  t_obj = (PetscObject)(ksp);
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&b_t);
   KSPGetConvergedReason(ksp, flag);
   KSPGetResidualNorm(ksp, &res);
   KSPGetIterationNumber(ksp, iter);
@@ -1445,7 +1439,7 @@ void petscSolveCRS_6args(const emxArray_int32_T *Arows,
   Mat t_mat;
   memcpy(&reshis_data[0], a, na << 3);
   times[0] = time_setup;
-  times[1] = secs - t;
+  times[1] = b_t - t;
   t_ksp = ksp;
   KSPDestroy(&t_ksp);
   t_mat = AMat;
@@ -1613,7 +1607,6 @@ void petscSolveCRS_8args(const emxArray_int32_T *Arows,
 {
   KSP ksp;
   KSP t_ksp;
-  MPI_Comm comm;
   MPI_Comm t_comm;
   Mat AMat;
   Mat t_mat;
@@ -1627,7 +1620,7 @@ void petscSolveCRS_8args(const emxArray_int32_T *Arows,
   emxArray_int32_T *idx;
   emxArray_int32_T *y;
   const double *b_data;
-  double secs;
+  double b_t;
   double t;
   double time_solve;
   double *x_data;
@@ -1744,15 +1737,15 @@ void petscSolveCRS_8args(const emxArray_int32_T *Arows,
   KSPSetPCSide(ksp, yk);
   KSPSetFromOptions(ksp);
   t_obj = (PetscObject)(ksp);
-  PetscObjectGetComm(t_obj, &comm);
-  MPI_Barrier(comm);
-  t = MPI_Wtime();
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&t);
   KSPSetUp(ksp);
-  MPI_Barrier(comm);
-  secs = MPI_Wtime();
+  t_obj = (PetscObject)(ksp);
+  PetscBarrier(t_obj);
+  PetscGetCPUTime(&b_t);
   b_petscKSPDriver(ksp, bVec, xVec, rtol, maxiter, NULL, flag, relres, iter,
                    reshis, &time_solve);
-  times[0] = secs - t;
+  times[0] = b_t - t;
   times[1] = time_solve;
   t_ksp = ksp;
   KSPDestroy(&t_ksp);
