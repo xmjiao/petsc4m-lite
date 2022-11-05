@@ -13,7 +13,9 @@ addpath(fullfile(petsc4m_root, 'CRS'));
 
 if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ~isempty(getenv('LD_PRELOAD'))
     % If running in Octave or in MATLAB without JVM and with LD_PRELOAD, use mex files
-    addpath(fullfile(petsc4m_root, 'CRS', 'mex'));
+    mexdir = fullfile(petsc4m_root, 'CRS', 'mex');
+    if ~isfolder(mexdir); mkdir(mexdir); end
+    addpath(mexdir);
 else
     % If running with MATLAB with JVM or without LD_PRELOAD, use exe files
     addpath(fullfile(petsc4m_root, 'CRS', 'exe'));
