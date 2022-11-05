@@ -10,7 +10,10 @@ for i = 1:length(files)
     run(fullfile('sys', 'lib', base, ['mex_', base, '.m']));
 end
 
-run(fullfile('CRS/lib/petscSolveCRS/mex_petscSolveCRS.m'));
-run(fullfile('CRS/lib/petscSolveCRS/build_petscSolveCRS_exe.m'));
+if use_mexfiles
+    run(fullfile('CRS/lib/petscSolveCRS/mex_petscSolveCRS.m'));
+else
+    run(fullfile('CRS/lib/petscSolveCRS/build_petscSolveCRS_exe.m'));
+end
 
 end
