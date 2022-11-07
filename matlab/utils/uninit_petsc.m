@@ -6,14 +6,9 @@ if exist('OCTAVE_VERSION', 'builtin')
     atexit('uninit_petsc', false)
 end
 
-try
-    if exist(['petscInitialized.' mexext], 'file') && ...
-            exist(['petscFinalized.' mexext], 'file')  && ...
-            exist(['petscFinalize.' mexext], 'file')  && ...
-            petscInitialized && ~petscFinalized
-        petscFinalize;
-    end
-catch
+if exist(['petscInitialized.' mexext], 'file') && ...
+        petscInitialized && ~petscFinalized
+    petscFinalize;
 end
 
 end
