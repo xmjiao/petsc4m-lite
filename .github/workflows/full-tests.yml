@@ -42,10 +42,9 @@ jobs:
       - run: echo " The workflow is now ready to test your code on the runner."
       - name: Run tests
         run: |  # test
-          (cd matlab && matlab -nodisplay -batch \
-          'build_petsc4m; run tests/testall' 2>&1 | tee ../matlab_output.txt) && \
-          (cd matlab && LD_PRELOAD=$PETSC_PRELOAD matlab -nodisplay -batch \
-          'build_petsc4m; run tests/testall' 2>&1 | tee  -a ../matlab_output.txt) && \
+          (cd matlab && matlab -nodisplay -batch 'run tests/testall' 2>&1 | tee ../matlab_output.txt) && \
+          (cd matlab && NG_NOCOMPILE=1 LD_PRELOAD=$PETSC_PRELOAD matlab -nodisplay -batch \
+          'run tests/testall' 2>&1 | tee  -a ../matlab_output.txt) && \
           [ -z "$(egrep '  \*\*\*\*\* test|Error (in|using) |Undefined function \S+ for input arguments|Invalid file identifier.' matlab_output.txt 2> /dev/null)" ]
 
       - name: Check warnings
