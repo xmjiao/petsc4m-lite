@@ -87,13 +87,8 @@ function mmex(varargin)
 %           http://www.mathworks.com/help/matlab/ref/mex.html
 
 %% Look for mkoctfile
-if exist('__octave_config_info__', 'builtin')
-  % octave_config_info is depreciated in 4.2.1
-  octave_config_info = @__octave_config_info__; %#ok<BADCH>
-end
-
-bindir = octave_config_info('bindir');
-ext = octave_config_info('EXEEXT');
+bindir = __octave_config_info__('bindir');
+ext = __octave_config_info__('EXEEXT');
 
 shell_script_ver = fullfile(bindir, ...
     sprintf ('mkoctfile-%s%s', OCTAVE_VERSION, ext));
@@ -112,7 +107,7 @@ end
 
 defs = struct('CC', '', 'CXX', '', 'CFLAGS', '', 'COPTIMFLAGS', '', ...
     'CPPFLAGS', '', 'CXXFLAGS', '', 'CXXOPTIMFLAGS', '', 'CDEBUGFLAGS', '', ...
-    'CXXDEBUGFLAGS', '', 'LDFLAGS', '', 'LINKLIBS', '');
+    'CXXDEBUGFLAGS', '', 'LDFLAGS', '', 'LINKLIBS', '', 'XTRA_CFLAGS', '', 'XTRA_CXXFLAGS', '');
 
 cmd = ['"' shell_script '" --mex -DMATLAB_MEX_FILE -DOCTAVE_MEX_FILE '];
 
@@ -191,44 +186,53 @@ end
 macros = '';
 
 if ~isempty(defs.CC)
-    macros = ['export CC=''' strtrim(defs.CC) '''; '];
-elseif contains(getenv('OCTAVE_HOME'), 'conda') && ...
-    exist([getenv('OCTAVE_HOME') '/bin/x86_64-conda-linux-gnu-cc'], 'file')
-    setenv('CC', [getenv('OCTAVE_HOME') '/bin/x86_64-conda-linux-gnu-cc']);
+    macros = ['CC=''' strtrim(defs.CC) ''' '];
+elseif ismac
+    macros = [macros 'CC=clang '];
+else
+    macros = [macros 'CC=cc '];
 end
 if ~isempty(defs.CXX)
-    macros = [macros 'export CXX=''' strtrim(defs.CXX) '''; '];
-elseif contains(getenv('OCTAVE_HOME'), 'conda') && ...
-    exist([getenv('OCTAVE_HOME') '/bin/x86_64-conda-linux-gnu-c++'], 'file')
-    setenv('CXX', [getenv('OCTAVE_HOME') '/bin/x86_64-conda-linux-gnu-c++']);
+    macros = [macros 'CXX=''' strtrim(defs.CXX) ''' '];
+elseif ismac
+    macros = [macros 'CXX=clang++ '];
+else
+    macros = [macros 'CXX=c++ '];
 end
 if ~isempty(defs.CPPFLAGS)
-    macros = [macros 'export CPPFLAGS=''' strtrim(defs.CPPFLAGS) '''; '];
+    macros = [macros 'CPPFLAGS=''' strtrim(defs.CPPFLAGS) ''' '];
 end
 if ~isempty(defs.CFLAGS) || ~isempty(defs.COPTIMFLAGS) || ~isempty(defs.CDEBUGFLAGS)
-    macros = [macros 'export CFLAGS=''' strtrim(defs.COPTIMFLAGS) ' ' ...
+    macros = [macros 'CFLAGS=''' strtrim(defs.COPTIMFLAGS) ' ' ...
         strtrim(strrep(defs.CFLAGS, '$CFLAGS', '')) ' ' ...
-        strtrim(defs.CDEBUGFLAGS) '''; '];
+        strtrim(defs.CDEBUGFLAGS) ''' '];
 end
 if ~isempty(defs.CXXFLAGS) || ~isempty(defs.CXXOPTIMFLAGS) || ~isempty(defs.CXXDEBUGFLAGS)
-    macros = [macros 'export CXXFLAGS=''' strtrim(defs.CXXOPTIMFLAGS) ' ' ...
+    macros = [macros 'CXXFLAGS=''' strtrim(defs.CXXOPTIMFLAGS) ' ' ...
         strtrim(strrep(defs.CXXFLAGS, '$CXXFLAGS', '')) ' ' ...
-        strtrim(defs.CXXDEBUGFLAGS) '''; '];
+        strtrim(defs.CXXDEBUGFLAGS) ''' '];
 elseif ~isempty(defs.CFLAGS)
-    macros = [macros 'export CXXFLAGS=''' strtrim(defs.CFLAGS) '''; '];
-end
-
-if ~isempty(defs.CXX)
-    macros = [macros 'export DL_LD=''' strtrim(defs.CXX) '''; '];
-elseif ~isempty(defs.CC) && strfind(defs.CC, 'mpicc')
-    macros = [macros 'export DL_LD=''' strtrim(strrep(defs.CC, 'mpicc', 'mpicxx')) '''; '];
+    macros = [macros 'CXXFLAGS=''' strtrim(defs.CFLAGS) ''' '];
 end
 
 if ~isempty(defs.LDFLAGS)
-    macros = [macros 'export LDFLAGS=''' strtrim(strrep(defs.LDFLAGS, '$LDFLAGS', '')) '''; '];
+    macros = [macros 'LDFLAGS=''' strtrim(strrep(defs.LDFLAGS, '$LDFLAGS', '')) ''' '];
+elseif ismac
+    macros = [macros 'LDFLAGS=''' strtrim(strrep(__octave_config_info__('LDFLAGS'), '-Wl,-pie ', '')) ''' '];
+    macros = [macros 'OCT_LINK_OPTS=''' strtrim(strrep(__octave_config_info__('OCT_LINK_OPTS'), '-Wl,-pie ', '')) ''' '];
 end
 if ~isempty(defs.LINKLIBS)
     cmd = [cmd ' ' strtrim(strrep(defs.LINKLIBS, '$LINKLIBS', ''))];
+end
+if ~isempty(defs.XTRA_CFLAGS)
+    macros = [macros 'XTRA_CFLAGS=''' strtrim(defs.XTRA_CFLAGS) ''' '];
+elseif ismac
+    macros = [macros 'XTRA_CFLAGS=''' strtrim(strrep(__octave_config_info__('XTRA_CFLAGS'), '-fopenmp', '')) ''' '];
+end
+if ~isempty(defs.XTRA_CXXFLAGS)
+    macros = [macros 'XTRA_CXXFLAGS=''' strtrim(defs.XTRA_CXXFLAGS) ''' '];
+elseif ismac
+    macros = [macros 'XTRA_CXXFLAGS=''' strtrim(strrep(__octave_config_info__('XTRA_CXXFLAGS'), '-fopenmp', '')) ''' '];
 end
 
 %%
