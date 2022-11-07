@@ -1,14 +1,16 @@
 function [PCC, CXX, INC, CFLAGS, CXXFLAGS, LIBDIR, LIBEXT, LIBEXTRA] = obtain_petsc_cc
-% Obtian the PCC and CXX commands from the petscvariables file
+% Obtain the PCC and CXX commands from the petscvariables file
 
-if ~isempty(getenv('PETSC_DIR'))
+if ispc
+    error('PETSC4M-LITE is only supported on Linux or Mac. See petsc4m-lite/README.md for help.');
+elseif ~isempty(getenv('PETSC_DIR'))
     PETSC_DIR = getenv('PETSC_DIR');
 elseif isfolder([getenv('CONDA_PREFIX') '/lib/petsc/conf'])
     PETSC_DIR = getenv('CONDA_PREFIX');
 elseif isfolder('/usr/lib/petsc')
     PETSC_DIR = '/usr/lib/petsc';
 else
-    error('Could not find PETSc installation. Please define PETSC_DIR');
+    error('Could not find PETSc installation. See petsc4m-lite/README.md for help.');
 end
 
 filename = [PETSC_DIR '/lib/petsc/conf/petscvariables'];

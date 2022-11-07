@@ -1,6 +1,13 @@
 function startup
 % startup script for petsc4m_root
 
+try
+    % Run startup only if PETSc was configured properly
+    run(fullfile(petsc4m_root, 'utils', 'obtain_petsc_cc'));
+catch
+    return
+end
+
 addpath(petsc4m_root);
 
 % Load its own submodules last for higher priority
