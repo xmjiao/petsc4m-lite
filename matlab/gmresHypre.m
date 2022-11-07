@@ -58,6 +58,9 @@ function varargout = gmresHypre(varargin)
 %    test (typically preconditioned residual), and the execution times in
 %    setup and solve.
 %
+% Note: If this function is running through files, the execution times are
+%       always printed out to the screen.
+%
 % SEE ALSO: gmresPetsc, petscSolveCRS
 
 if nargin==0
