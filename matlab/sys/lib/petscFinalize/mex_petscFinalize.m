@@ -17,10 +17,10 @@ if ~exist('isnewer', 'file') || ...
         ' petscFinalize.c petscFinalize_mex.c -output ' target ...
         ' LINKLIBS=''' dylibdir(LIBDIR) ' -lpetsc' LIBEXT ' ' LIBEXTRA ' $LINKLIBS'''];
 
-    disp(build_cmd);
     if exist('OCTAVE_VERSION', 'builtin')
         build_cmd = ['m' build_cmd];
     end
+    disp(build_cmd);
     eval(build_cmd); %#ok<EVLEQ>
 else
     fprintf(1, [target(length(fileparts(target)) + 2:end) ' is up to date.\n']);
