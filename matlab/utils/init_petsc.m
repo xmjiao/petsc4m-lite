@@ -12,7 +12,7 @@ if exist(['petscInitialize.' mexext], 'file')
             addpath(fullfile(petsc4m_root, 'CRS', 'mex'));
 
             if exist('OCTAVE_VERSION', 'builtin')
-                atexit('uninit_petsc')
+                atexit('petscFinalize')
             end
         end
     catch
