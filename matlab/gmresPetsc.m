@@ -33,6 +33,9 @@ function varargout = gmresPetsc(varargin)
 % Note: If this function is running through files, the execution times are
 %       always printed out to the screen.
 %
+% Note: If this function is running through files, the execution times are
+%       always printed out to the screen.
+%
 % SEE ALSO: gmresHypre
 
 if nargin==0
