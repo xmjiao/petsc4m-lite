@@ -11,10 +11,10 @@ if ~exist('isnewer', 'file') || ...
     build_cmd = ['mex -I../../../include ', ...
         ' crs_createFromAIJ.c crs_createFromAIJ_mex.c -output ' target];
 
-    disp(build_cmd);
     if exist('OCTAVE_VERSION', 'builtin')
         build_cmd = ['m' build_cmd];
     end
+    disp(build_cmd);
     eval(build_cmd); %#ok<EVLEQ>
 else
     fprintf(1, [target(length(fileparts(target)) - 3:end) ' is up to date.\n']);

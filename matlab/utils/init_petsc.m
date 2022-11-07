@@ -5,16 +5,15 @@ if ~use_mexfiles; return; end
 
 addpath(fullfile(petsc4m_root, 'sys'));
 
-if exist(['petscInitialize.' mexext], 'file') && ...
-    isequal(which('petscInitialize'), which(['petscInitialize.' mexext]))
+if exist(['petscInitialize.' mexext], 'file')
     try
         if ~petscInitialized
             petscInitialize;
+            addpath(fullfile(petsc4m_root, 'CRS', 'mex'));
 
             if exist('OCTAVE_VERSION', 'builtin')
                 atexit('uninit_petsc')
             end
-            addpath(fullfile(petsc4m_root, 'CRS', 'mex'));
         end
     catch
         warning('Petsc4m:FailedInit', 'Failed to initialize petsc4m.')

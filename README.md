@@ -33,7 +33,7 @@ or `anaconda3` and have `conda` in the path and the environment variable
 `CONDA_PREFIX` pointing to the correct version, you can install PETSc
 using the command
 ```
-   conda install -y -c conda-forge petsc
+   conda install -y -c conda-forge petsc=3.18.1
 ```
 
 On Linux systems, you can also use the older versions of PETSc that comes with
@@ -58,9 +58,9 @@ NOTES ON PETSC4M-LITE IN MATLAB
 
 When running MATLAB with JAVA enabled, petsc4m-lite always pass data through
 files for robustness. When solving larger systems in MATLAB, you may prefer to
-pass data through memory. In this case, you can opt to use Octave. If you must
-use MATLAB, you need to take some extra steps to resolve potential conflicts
-of the LAPACK and MPI libraries used by MATLAB and PETSc. In particular, you need to
+pass data through memory. In this case, you need to take some extra steps to
+resolve potential conflicts of the LAPACK and MPI libraries used by MATLAB
+and PETSc. In particular, you need to
 
 1) disable JVM when launching MATLAB,
 2) tell MATLAB to preload the LAPACK shared library used by PETSc on Linux systems, and
@@ -80,7 +80,7 @@ MPICH, you need to to start MATLAB with the following command:
 LD_PRELOAD=$CONDA_PREFIX/lib/liblapack.so.3:$MATLAB_ROOT/bin/glnxa64/libmpi.so.12:$MATLAB_ROOT/bin/glnxa64/libmpifort.so.12 matlab -nojvm
 ```
 
-where `$CONDA_PREFIX` is typically `$HOME/opt/anaconda3` or `$HOME/opt/miniconda3`
+where `$CONDA_PREFIX` is typically `$HOME/miniconda3` or `$HOME/opt/anaconda3`,
 and `$MATLAB_ROOT` is typically `/usr/local/MATLAB/$MATMAB_VERSION` for your
 specific MATLAB version.
 
@@ -93,3 +93,9 @@ For your own installation of PETSc on Linux, you can find out the LAPACK library
 used by PETSc using the command `ldd /path/to/libpetsc*.so | grep lapack`. If you
 are unsure whether PETSc was built using an MPICH variant, it is safe to preload
 the MPI libraries.
+
+NOTES ON PETSC4M-LITE IN MATLAB
+===============================
+
+PETSC4M-LITE works with Octave on Linux and Mac, and it always pass data through
+memory. It is recommended that you install Octave using Miniconda.
