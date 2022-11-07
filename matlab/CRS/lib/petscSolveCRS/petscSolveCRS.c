@@ -354,8 +354,8 @@ static void d_m2c_printf(int varargin_2, double varargin_3)
 static void e_m2c_printf(void)
 {
   M2C_printf("### For explanation of the flag, see "
-             "http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/KSP/"
-             "KSPConvergedReason.html.\n");
+             "https://petsc.org/release/docs/manualpages/KSP/"
+             "KSPConvergedReason.\n");
 }
 
 static void m2c_error(void)

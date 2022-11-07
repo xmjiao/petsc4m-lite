@@ -9,7 +9,7 @@ function [finalized, errCode, toplevel] = petscFinalized
 %
 % PETSc C interface:
 %   PetscErrorCode  PetscFinalized(PetscBool  *isFinalized)
-% http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Sys/PetscFinalized.html
+% https://petsc.org/release/docs/manualpages/Sys/PetscFinalized
 
 %#codegen -args {}
 finalized = int32(0);

@@ -13,7 +13,7 @@ function [errCode, toplevel] = petscFinalize
 %
 % PETSc C interface:
 %   PetscErrorCode  PetscFinalize(void)
-% http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Sys/PetscFinalize.html
+% https://petsc.org/release/docs/manualpages/Sys/PetscFinalize
 
 %#codegen -args {}
 

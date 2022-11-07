@@ -9,7 +9,7 @@ function [initialized, errCode, toplevel] = petscInitialized
 
 % PETSc C interface:
 %   PetscErrorCode PetscInitialized(PetscBool  *isInitialized)
-% http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Sys/PetscInitialized.html
+% https://petsc.org/release/docs/manualpages/Sys/PetscInitialized
 
 %#codegen -args {}
 

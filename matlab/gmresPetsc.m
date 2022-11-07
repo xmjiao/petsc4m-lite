@@ -47,9 +47,9 @@ if issparse(varargin{1})
     [Arows, Acols, Avals] = crs_matrix(varargin{1});
 else
     assert(isstruct(varargin{1}));
-    Arows = varargin{1}.row_ptr;
-    Acols = varargin{1}.col_ind;
-    Avals = varargin{1}.val;
+    Arows = int32(varargin{1}.row_ptr);
+    Acols = int32(varargin{1}.col_ind);
+    Avals = PetscScalar(varargin{1}.val);
 end
 
 next_index = 2;
