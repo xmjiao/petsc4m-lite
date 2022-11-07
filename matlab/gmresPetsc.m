@@ -103,5 +103,6 @@ function test %#ok<DEFNU>
 
 %! [x,flag,relres,iter,reshis,times] = gmresPetsc(A, b, [], rtol);
 %! assert(norm(b - A*double(x)) < rtol * norm(b))
+%! fprintf('gmresPetsc setup took %g seconds and solver took %g seconds\n', times(1), times(2));
 
 end

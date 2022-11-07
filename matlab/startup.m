@@ -5,6 +5,9 @@ addpath(petsc4m_root);
 
 % Load its own submodules last for higher priority
 addpath(fullfile(petsc4m_root, 'utils'));
+if exist('OCTAVE_VERSION', 'builtin')
+    addpath(fullfile(petsc4m_root, 'utils', 'octave'));
+end
 addpath(fullfile(petsc4m_root, 'KSP'));
 addpath(fullfile(petsc4m_root, 'PC'));
 addpath(fullfile(petsc4m_root, 'CRS'));
