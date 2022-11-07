@@ -47,7 +47,7 @@ tf = true;
 liblapack = regexp(result, '\S+liblapack\.\S+', 'match', 'once');
 
 missed = '';
-if ~contains(getenv('LD_PRELOAD'), liblapack)
+if ~isempty(liblapack) && ~contains(getenv('LD_PRELOAD'), liblapack)
     tf = false;
     missed = [missed ':' liblapack];
 end
@@ -55,10 +55,9 @@ end
 % Check whether libmpi.so exists in matlabroot and whether it was preloaded
 mpilib = dir(fullfile(matlabroot, 'bin', 'glnxa64', 'libmpi*.so.*'));
 for i=1:length(mpilib)
-    if ~isempty(regexp(mpilib(i).name, 'libmpi\w*.so.\d+$', 'match')) && ...
-            ~contains(result, mpilib(i).name)
+    if contains(result, mpilib(i).name) && ~contains(getenv('LD_PRELOAD'), mpilib(i).name)
         tf = false;
-        missed = [missed ':' mpilib(i).folder '/' mpilib(i).name]; %#ok<AGROW> 
+        missed = [missed ':' mpilib(i).folder '/' mpilib(i).name]; %#ok<AGROW>
     end
 end
 
