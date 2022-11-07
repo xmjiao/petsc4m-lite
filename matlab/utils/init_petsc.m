@@ -62,6 +62,7 @@ for i=1:length(mpilib)
 end
 
 if ~tf
+    fprintf(1, 'Your LD_PRELOAD is %s.\n', getenv('LD_PRELOAD'));
     fprintf(1, 'To use MEX mode of PETSc, please add %s to LD_PRELOAD and restart MATLAB.\n', missed(2:end));
 end
 end
