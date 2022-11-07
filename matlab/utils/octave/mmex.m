@@ -187,15 +187,11 @@ macros = '';
 
 if ~isempty(defs.CC)
     macros = ['CC=''' strtrim(defs.CC) ''' '];
-elseif ismac
-    macros = [macros 'CC=clang '];
 else
     macros = [macros 'CC=cc '];
 end
 if ~isempty(defs.CXX)
     macros = [macros 'CXX=''' strtrim(defs.CXX) ''' '];
-elseif ismac
-    macros = [macros 'CXX=clang++ '];
 else
     macros = [macros 'CXX=c++ '];
 end
