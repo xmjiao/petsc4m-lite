@@ -10,9 +10,12 @@ for i = 1:length(files)
     run(fullfile('sys', 'lib', base, ['mex_', base, '.m']));
 end
 
-if use_mexfiles
-    run(fullfile('CRS/lib/petscSolveCRS/mex_petscSolveCRS.m'));
-else
+% If running in Octave or in MATLAB without desktop, use mex files
+mexdir = fullfile(petsc4m_root, 'CRS', 'mex');
+if ~isfolder(mexdir); mkdir(mexdir); end
+run(fullfile('CRS/lib/petscSolveCRS/mex_petscSolveCRS.m'));
+
+if ~exist('OCTAVE_VERSION', 'builtin')
     run(fullfile('CRS/lib/petscSolveCRS/build_petscSolveCRS_exe.m'));
 end
 
