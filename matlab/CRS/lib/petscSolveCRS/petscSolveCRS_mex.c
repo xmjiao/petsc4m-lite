@@ -26,7 +26,6 @@ static void __petscSolveCRS_api(mxArray **plhs, const mxArray ** prhs) {
     real64_T            *relres;
     int32_T             *iter;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -40,10 +39,7 @@ static void __petscSolveCRS_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS(flag, relres, iter, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     plhs[1] = move_scalar_to_mxArray(flag, mxINT32_CLASS);
@@ -71,7 +67,6 @@ static void __petscSolveCRS_4args_api(mxArray **plhs, const mxArray ** prhs) {
     int32_T             *iter;
     emxArray_real_T      reshis;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -79,7 +74,7 @@ static void __petscSolveCRS_4args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[0]) && mxGetClassID(prhs[0]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_4args:WrongInputType",
             "Input argument Arows has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_4args:WrongSizeOfInputArg",
             "Dimension 2 of Arows should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[0], (emxArray__common *)(&Arows), "Arows", 1);
@@ -87,7 +82,7 @@ static void __petscSolveCRS_4args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[1]) && mxGetClassID(prhs[1]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_4args:WrongInputType",
             "Input argument Acols has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_4args:WrongSizeOfInputArg",
             "Dimension 2 of Acols should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[1], (emxArray__common *)(&Acols), "Acols", 1);
@@ -95,7 +90,7 @@ static void __petscSolveCRS_4args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[2]) && mxGetClassID(prhs[2]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_4args:WrongInputType",
             "Input argument Avals has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_4args:WrongSizeOfInputArg",
             "Dimension 2 of Avals should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[2], (emxArray__common *)(&Avals), "Avals", 1);
@@ -103,7 +98,7 @@ static void __petscSolveCRS_4args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[3]) && mxGetClassID(prhs[3]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_4args:WrongInputType",
             "Input argument b has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_4args:WrongSizeOfInputArg",
             "Dimension 2 of b should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[3], (emxArray__common *)(&b), "b", 1);
@@ -119,10 +114,7 @@ static void __petscSolveCRS_4args_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS_4args(&Arows, &Acols, &Avals, &b, &x, flag, relres, iter, &reshis, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     free_emxArray((emxArray__common*)(&Arows));
@@ -153,7 +145,6 @@ static void __petscSolveCRS_5args_api(mxArray **plhs, const mxArray ** prhs) {
     int32_T             *iter;
     emxArray_real_T      reshis;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -161,7 +152,7 @@ static void __petscSolveCRS_5args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[0]) && mxGetClassID(prhs[0]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongInputType",
             "Input argument Arows has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongSizeOfInputArg",
             "Dimension 2 of Arows should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[0], (emxArray__common *)(&Arows), "Arows", 1);
@@ -169,7 +160,7 @@ static void __petscSolveCRS_5args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[1]) && mxGetClassID(prhs[1]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongInputType",
             "Input argument Acols has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongSizeOfInputArg",
             "Dimension 2 of Acols should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[1], (emxArray__common *)(&Acols), "Acols", 1);
@@ -177,7 +168,7 @@ static void __petscSolveCRS_5args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[2]) && mxGetClassID(prhs[2]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongInputType",
             "Input argument Avals has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongSizeOfInputArg",
             "Dimension 2 of Avals should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[2], (emxArray__common *)(&Avals), "Avals", 1);
@@ -185,7 +176,7 @@ static void __petscSolveCRS_5args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[3]) && mxGetClassID(prhs[3]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongInputType",
             "Input argument b has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongSizeOfInputArg",
             "Dimension 2 of b should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[3], (emxArray__common *)(&b), "b", 1);
@@ -193,7 +184,7 @@ static void __petscSolveCRS_5args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[4]) && mxGetClassID(prhs[4]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongInputType",
             "Input argument solver has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_5args:WrongSizeOfInputArg",
             "Dimension 1 of solver should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[4], (emxArray__common *)(&solver), "solver", 2);
@@ -209,10 +200,7 @@ static void __petscSolveCRS_5args_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS_5args(&Arows, &Acols, &Avals, &b, &solver, &x, flag, relres, iter, &reshis, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     free_emxArray((emxArray__common*)(&Arows));
@@ -245,7 +233,6 @@ static void __petscSolveCRS_6args_api(mxArray **plhs, const mxArray ** prhs) {
     int32_T             *iter;
     emxArray_real_T      reshis;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -253,7 +240,7 @@ static void __petscSolveCRS_6args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[0]) && mxGetClassID(prhs[0]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongInputType",
             "Input argument Arows has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongSizeOfInputArg",
             "Dimension 2 of Arows should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[0], (emxArray__common *)(&Arows), "Arows", 1);
@@ -261,7 +248,7 @@ static void __petscSolveCRS_6args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[1]) && mxGetClassID(prhs[1]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongInputType",
             "Input argument Acols has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongSizeOfInputArg",
             "Dimension 2 of Acols should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[1], (emxArray__common *)(&Acols), "Acols", 1);
@@ -269,7 +256,7 @@ static void __petscSolveCRS_6args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[2]) && mxGetClassID(prhs[2]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongInputType",
             "Input argument Avals has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongSizeOfInputArg",
             "Dimension 2 of Avals should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[2], (emxArray__common *)(&Avals), "Avals", 1);
@@ -277,7 +264,7 @@ static void __petscSolveCRS_6args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[3]) && mxGetClassID(prhs[3]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongInputType",
             "Input argument b has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongSizeOfInputArg",
             "Dimension 2 of b should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[3], (emxArray__common *)(&b), "b", 1);
@@ -285,7 +272,7 @@ static void __petscSolveCRS_6args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[4]) && mxGetClassID(prhs[4]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongInputType",
             "Input argument solver has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_6args:WrongSizeOfInputArg",
             "Dimension 1 of solver should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[4], (emxArray__common *)(&solver), "solver", 2);
@@ -309,10 +296,7 @@ static void __petscSolveCRS_6args_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS_6args(&Arows, &Acols, &Avals, &b, &solver, rtol, &x, flag, relres, iter, &reshis, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     free_emxArray((emxArray__common*)(&Arows));
@@ -347,7 +331,6 @@ static void __petscSolveCRS_7args_api(mxArray **plhs, const mxArray ** prhs) {
     int32_T             *iter;
     emxArray_real_T      reshis;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -355,7 +338,7 @@ static void __petscSolveCRS_7args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[0]) && mxGetClassID(prhs[0]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongInputType",
             "Input argument Arows has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongSizeOfInputArg",
             "Dimension 2 of Arows should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[0], (emxArray__common *)(&Arows), "Arows", 1);
@@ -363,7 +346,7 @@ static void __petscSolveCRS_7args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[1]) && mxGetClassID(prhs[1]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongInputType",
             "Input argument Acols has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongSizeOfInputArg",
             "Dimension 2 of Acols should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[1], (emxArray__common *)(&Acols), "Acols", 1);
@@ -371,7 +354,7 @@ static void __petscSolveCRS_7args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[2]) && mxGetClassID(prhs[2]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongInputType",
             "Input argument Avals has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongSizeOfInputArg",
             "Dimension 2 of Avals should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[2], (emxArray__common *)(&Avals), "Avals", 1);
@@ -379,7 +362,7 @@ static void __petscSolveCRS_7args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[3]) && mxGetClassID(prhs[3]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongInputType",
             "Input argument b has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongSizeOfInputArg",
             "Dimension 2 of b should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[3], (emxArray__common *)(&b), "b", 1);
@@ -387,7 +370,7 @@ static void __petscSolveCRS_7args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[4]) && mxGetClassID(prhs[4]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongInputType",
             "Input argument solver has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_7args:WrongSizeOfInputArg",
             "Dimension 1 of solver should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[4], (emxArray__common *)(&solver), "solver", 2);
@@ -419,10 +402,7 @@ static void __petscSolveCRS_7args_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS_7args(&Arows, &Acols, &Avals, &b, &solver, rtol, maxiter, &x, flag, relres, iter, &reshis, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     free_emxArray((emxArray__common*)(&Arows));
@@ -459,7 +439,6 @@ static void __petscSolveCRS_8args_api(mxArray **plhs, const mxArray ** prhs) {
     int32_T             *iter;
     emxArray_real_T      reshis;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -467,7 +446,7 @@ static void __petscSolveCRS_8args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[0]) && mxGetClassID(prhs[0]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongInputType",
             "Input argument Arows has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongSizeOfInputArg",
             "Dimension 2 of Arows should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[0], (emxArray__common *)(&Arows), "Arows", 1);
@@ -475,7 +454,7 @@ static void __petscSolveCRS_8args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[1]) && mxGetClassID(prhs[1]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongInputType",
             "Input argument Acols has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongSizeOfInputArg",
             "Dimension 2 of Acols should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[1], (emxArray__common *)(&Acols), "Acols", 1);
@@ -483,7 +462,7 @@ static void __petscSolveCRS_8args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[2]) && mxGetClassID(prhs[2]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongInputType",
             "Input argument Avals has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongSizeOfInputArg",
             "Dimension 2 of Avals should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[2], (emxArray__common *)(&Avals), "Avals", 1);
@@ -491,7 +470,7 @@ static void __petscSolveCRS_8args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[3]) && mxGetClassID(prhs[3]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongInputType",
             "Input argument b has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongSizeOfInputArg",
             "Dimension 2 of b should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[3], (emxArray__common *)(&b), "b", 1);
@@ -499,7 +478,7 @@ static void __petscSolveCRS_8args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[4]) && mxGetClassID(prhs[4]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongInputType",
             "Input argument solver has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongSizeOfInputArg",
             "Dimension 1 of solver should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[4], (emxArray__common *)(&solver), "solver", 2);
@@ -523,7 +502,7 @@ static void __petscSolveCRS_8args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[7]) && mxGetClassID(prhs[7]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongInputType",
             "Input argument pctype has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[7]) && mxGetDimensions(prhs[7])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[7]) && mxGetDimensions(prhs[7])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_8args:WrongSizeOfInputArg",
             "Dimension 1 of pctype should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[7], (emxArray__common *)(&pctype), "pctype", 2);
@@ -539,10 +518,7 @@ static void __petscSolveCRS_8args_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS_8args(&Arows, &Acols, &Avals, &b, &solver, rtol, maxiter, &pctype, &x, flag, relres, iter, &reshis, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     free_emxArray((emxArray__common*)(&Arows));
@@ -581,7 +557,6 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     int32_T             *iter;
     emxArray_real_T      reshis;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -589,7 +564,7 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[0]) && mxGetClassID(prhs[0]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongInputType",
             "Input argument Arows has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongSizeOfInputArg",
             "Dimension 2 of Arows should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[0], (emxArray__common *)(&Arows), "Arows", 1);
@@ -597,7 +572,7 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[1]) && mxGetClassID(prhs[1]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongInputType",
             "Input argument Acols has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongSizeOfInputArg",
             "Dimension 2 of Acols should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[1], (emxArray__common *)(&Acols), "Acols", 1);
@@ -605,7 +580,7 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[2]) && mxGetClassID(prhs[2]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongInputType",
             "Input argument Avals has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongSizeOfInputArg",
             "Dimension 2 of Avals should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[2], (emxArray__common *)(&Avals), "Avals", 1);
@@ -613,7 +588,7 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[3]) && mxGetClassID(prhs[3]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongInputType",
             "Input argument b has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongSizeOfInputArg",
             "Dimension 2 of b should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[3], (emxArray__common *)(&b), "b", 1);
@@ -621,7 +596,7 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[4]) && mxGetClassID(prhs[4]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongInputType",
             "Input argument solver has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongSizeOfInputArg",
             "Dimension 1 of solver should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[4], (emxArray__common *)(&solver), "solver", 2);
@@ -645,7 +620,7 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[7]) && mxGetClassID(prhs[7]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongInputType",
             "Input argument pctype has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[7]) && mxGetDimensions(prhs[7])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[7]) && mxGetDimensions(prhs[7])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongSizeOfInputArg",
             "Dimension 1 of pctype should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[7], (emxArray__common *)(&pctype), "pctype", 2);
@@ -653,7 +628,7 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[8]) && mxGetClassID(prhs[8]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongInputType",
             "Input argument solpack has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[8]) && mxGetDimensions(prhs[8])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[8]) && mxGetDimensions(prhs[8])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_9args:WrongSizeOfInputArg",
             "Dimension 1 of solpack should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[8], (emxArray__common *)(&solpack), "solpack", 2);
@@ -669,10 +644,7 @@ static void __petscSolveCRS_9args_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS_9args(&Arows, &Acols, &Avals, &b, &solver, rtol, maxiter, &pctype, &solpack, &x, flag, relres, iter, &reshis, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     free_emxArray((emxArray__common*)(&Arows));
@@ -713,7 +685,6 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     int32_T             *iter;
     emxArray_real_T      reshis;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -721,7 +692,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[0]) && mxGetClassID(prhs[0]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongInputType",
             "Input argument Arows has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongSizeOfInputArg",
             "Dimension 2 of Arows should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[0], (emxArray__common *)(&Arows), "Arows", 1);
@@ -729,7 +700,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[1]) && mxGetClassID(prhs[1]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongInputType",
             "Input argument Acols has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongSizeOfInputArg",
             "Dimension 2 of Acols should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[1], (emxArray__common *)(&Acols), "Acols", 1);
@@ -737,7 +708,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[2]) && mxGetClassID(prhs[2]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongInputType",
             "Input argument Avals has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongSizeOfInputArg",
             "Dimension 2 of Avals should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[2], (emxArray__common *)(&Avals), "Avals", 1);
@@ -745,7 +716,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[3]) && mxGetClassID(prhs[3]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongInputType",
             "Input argument b has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongSizeOfInputArg",
             "Dimension 2 of b should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[3], (emxArray__common *)(&b), "b", 1);
@@ -753,7 +724,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[4]) && mxGetClassID(prhs[4]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongInputType",
             "Input argument solver has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongSizeOfInputArg",
             "Dimension 1 of solver should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[4], (emxArray__common *)(&solver), "solver", 2);
@@ -777,7 +748,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[7]) && mxGetClassID(prhs[7]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongInputType",
             "Input argument pctype has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[7]) && mxGetDimensions(prhs[7])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[7]) && mxGetDimensions(prhs[7])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongSizeOfInputArg",
             "Dimension 1 of pctype should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[7], (emxArray__common *)(&pctype), "pctype", 2);
@@ -785,7 +756,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[8]) && mxGetClassID(prhs[8]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongInputType",
             "Input argument solpack has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[8]) && mxGetDimensions(prhs[8])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[8]) && mxGetDimensions(prhs[8])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongSizeOfInputArg",
             "Dimension 1 of solpack should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[8], (emxArray__common *)(&solpack), "solpack", 2);
@@ -793,7 +764,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[9]) && mxGetClassID(prhs[9]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongInputType",
             "Input argument x0 has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[9]) && mxGetDimensions(prhs[9])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[9]) && mxGetDimensions(prhs[9])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_10args:WrongSizeOfInputArg",
             "Dimension 2 of x0 should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[9], (emxArray__common *)(&x0), "x0", 1);
@@ -809,10 +780,7 @@ static void __petscSolveCRS_10args_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS_10args(&Arows, &Acols, &Avals, &b, &solver, rtol, maxiter, &pctype, &solpack, &x0, &x, flag, relres, iter, &reshis, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     free_emxArray((emxArray__common*)(&Arows));
@@ -855,7 +823,6 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     int32_T             *iter;
     emxArray_real_T      reshis;
     real64_T            *times;
-    double               _timestamp;
 
     int                  _dims[1];
 
@@ -863,7 +830,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[0]) && mxGetClassID(prhs[0]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument Arows has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[0]) && mxGetDimensions(prhs[0])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 2 of Arows should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[0], (emxArray__common *)(&Arows), "Arows", 1);
@@ -871,7 +838,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[1]) && mxGetClassID(prhs[1]) != mxINT32_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument Acols has incorrect data type; int32 is expected.");
-    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[1]) && mxGetDimensions(prhs[1])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 2 of Acols should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[1], (emxArray__common *)(&Acols), "Acols", 1);
@@ -879,7 +846,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[2]) && mxGetClassID(prhs[2]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument Avals has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[2]) && mxGetDimensions(prhs[2])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 2 of Avals should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[2], (emxArray__common *)(&Avals), "Avals", 1);
@@ -887,7 +854,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[3]) && mxGetClassID(prhs[3]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument b has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[3]) && mxGetDimensions(prhs[3])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 2 of b should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[3], (emxArray__common *)(&b), "b", 1);
@@ -895,7 +862,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[4]) && mxGetClassID(prhs[4]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument solver has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[4]) && mxGetDimensions(prhs[4])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 1 of solver should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[4], (emxArray__common *)(&solver), "solver", 2);
@@ -919,7 +886,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[7]) && mxGetClassID(prhs[7]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument pctype has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[7]) && mxGetDimensions(prhs[7])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[7]) && mxGetDimensions(prhs[7])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 1 of pctype should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[7], (emxArray__common *)(&pctype), "pctype", 2);
@@ -927,7 +894,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[8]) && mxGetClassID(prhs[8]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument solpack has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[8]) && mxGetDimensions(prhs[8])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[8]) && mxGetDimensions(prhs[8])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 1 of solpack should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[8], (emxArray__common *)(&solpack), "solpack", 2);
@@ -935,7 +902,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[9]) && mxGetClassID(prhs[9]) != mxDOUBLE_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument x0 has incorrect data type; double is expected.");
-    if (mxGetNumberOfElements(prhs[9]) && mxGetDimensions(prhs[9])[1] != 1) 
+    if (mxGetNumberOfElements(prhs[9]) && mxGetDimensions(prhs[9])[1] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 2 of x0 should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[9], (emxArray__common *)(&x0), "x0", 1);
@@ -943,7 +910,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     if (mxGetNumberOfElements(prhs[10]) && mxGetClassID(prhs[10]) != mxCHAR_CLASS)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongInputType",
             "Input argument opts has incorrect data type; char is expected.");
-    if (mxGetNumberOfElements(prhs[10]) && mxGetDimensions(prhs[10])[0] != 1) 
+    if (mxGetNumberOfElements(prhs[10]) && mxGetDimensions(prhs[10])[0] != 1)
         mexErrMsgIdAndTxt("petscSolveCRS_11args:WrongSizeOfInputArg",
             "Dimension 1 of opts should be equal to 1.");
     alias_mxArray_to_emxArray(prhs[10], (emxArray__common *)(&opts), "opts", 2);
@@ -959,10 +926,7 @@ static void __petscSolveCRS_11args_api(mxArray **plhs, const mxArray ** prhs) {
     times = (real64_T*)mxMalloc(sizeof(real64_T) * 2);
 
     /* Invoke the target function */
-    _timestamp = M2C_wtime();
     petscSolveCRS_11args(&Arows, &Acols, &Avals, &b, &solver, rtol, maxiter, &pctype, &solpack, &x0, &opts, &x, flag, relres, iter, &reshis, times);
-    _timestamp = M2C_wtime() - _timestamp;
-    printf("Function petscSolveCRS completed in %g seconds.\n", _timestamp);
 
     /* Deallocate input and marshall out function outputs */
     free_emxArray((emxArray__common*)(&Arows));

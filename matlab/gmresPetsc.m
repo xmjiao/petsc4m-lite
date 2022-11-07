@@ -30,6 +30,9 @@ function varargout = gmresPetsc(varargin)
 %    test (typically preconditioned residual), and the execution times in
 %    setup and solve.
 %
+% Note: If this function is running through files, the execution times are
+%       always printed out to the screen.
+%
 % SEE ALSO: gmresHypre
 
 if nargin==0
@@ -94,11 +97,12 @@ end
 
 function test %#ok<DEFNU>
 %!test
-%! A = gallery('wathen', 10, 10);
+%! A = gallery('wathen', 256, 256);
 %! b = A * ones(length(A), 1);
 %! rtol = 10*eps(class(PetscReal(0))).^(1/2);
 
 %! [x,flag,relres,iter,reshis,times] = gmresPetsc(A, b, [], rtol);
 %! assert(norm(b - A*double(x)) < rtol * norm(b))
+%! fprintf('gmresPetsc setup took %g seconds and solver took %g seconds\n', times(1), times(2));
 
 end

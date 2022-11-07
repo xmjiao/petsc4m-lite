@@ -94,14 +94,10 @@ if nargin == 0
     return;
 end
 
-if isempty(coder.target) && ~exist('OCTAVE_VERSION', 'builtin') && usejava('jvm') && ...
-        exist('run_petscSolveCRS_exe', 'file')
-    % Is running in MATLAB and mex files are not available
+if isempty(coder.target)
     [x, flag, relres, iter, reshis, times] = run_petscSolveCRS_exe(varargin{:});
     fprintf('KSP setup took %g seconds and solver took %g seconds\n', times(1), times(2));
     return;
-elseif isempty(coder.target) && ~exist(['petscVecDuplicate.' mexext], 'file')
-    error('You must have built either the executable built when running in MATLAB.');
 end
 
 Arows = varargin{1};
