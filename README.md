@@ -33,7 +33,7 @@ or `anaconda3` and have `conda` in the path and the environment variable
 `CONDA_PREFIX` pointing to the correct version, you can install PETSc
 using the command
 ```
-   conda install -y -c conda-forge petsc
+   conda install -y -c conda-forge petsc=3.18.1
 ```
 
 On Linux systems, you can also use the older versions of PETSc that comes with
@@ -80,7 +80,7 @@ MPICH, you need to to start MATLAB with the following command:
 LD_PRELOAD=$CONDA_PREFIX/lib/liblapack.so.3:$MATLAB_ROOT/bin/glnxa64/libmpi.so.12:$MATLAB_ROOT/bin/glnxa64/libmpifort.so.12 matlab -nojvm
 ```
 
-where `$CONDA_PREFIX` is typically `$HOME/opt/anaconda3` or `$HOME/opt/miniconda3`
+where `$CONDA_PREFIX` is typically `$HOME/miniconda3` or `$HOME/opt/anaconda3`,
 and `$MATLAB_ROOT` is typically `/usr/local/MATLAB/$MATMAB_VERSION` for your
 specific MATLAB version.
 

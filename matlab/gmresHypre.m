@@ -142,7 +142,7 @@ end
 
 function test %#ok<DEFNU>
 %!test
-%! if exist('OCTAVE_VERSION', 'builtin'); n = 10; else; n = 256; end
+%! if exist('OCTAVE_VERSION', 'builtin'); n = 20; else; n = 256; end
 %! A = gallery('wathen', n, n);
 %! b = A * ones(length(A), 1);
 %! rtol = 10*eps(class(PetscReal(0))).^(1/2);
