@@ -10,6 +10,10 @@ if exist(['petscInitialize.' mexext], 'file')
         if ~petscInitialized
             petscInitialize;
             addpath(fullfile(petsc4m_root, 'CRS', 'mex'));
+
+            if exist('OCTAVE_VERSION', 'builtin')
+                atexit('petscFinalize')
+            end
         end
     catch
         warning('Petsc4m:FailedInit', 'Failed to initialize petsc4m.')
