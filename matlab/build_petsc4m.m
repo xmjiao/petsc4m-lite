@@ -10,6 +10,8 @@ for i = 1:length(files)
     run(fullfile('sys', 'lib', base, ['mex_', base, '.m']));
 end
 
+run(fullfile('CRS/lib/crs_createFromAIJ/mex_crs_createFromAIJ.m'));
+
 % If running in Octave or in MATLAB without desktop, use mex files
 mexdir = fullfile(petsc4m_root, 'CRS', 'mex');
 if ~isfolder(mexdir); mkdir(mexdir); end
