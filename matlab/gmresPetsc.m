@@ -94,7 +94,7 @@ end
 
 function test %#ok<DEFNU>
 %!test
-%! A = gallery('wathen', 10, 10);
+%! A = gallery('wathen', 128, 128);
 %! b = A * ones(length(A), 1);
 %! rtol = 10*eps(class(PetscReal(0))).^(1/2);
 
