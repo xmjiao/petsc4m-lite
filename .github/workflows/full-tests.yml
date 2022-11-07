@@ -43,7 +43,7 @@ jobs:
       - name: Run tests
         run: |  # test
           (cd matlab && matlab -nodisplay -batch 'run tests/testall' 2>&1 | tee ../matlab_output.txt) && \
-          (cd matlab && NG_NOCOMPILE=1 LD_PRELOAD=$PETSC_PRELOAD matlab -nodisplay -batch \
+          (cd matlab && NG_NOCOMPILE=1 LD_PRELOAD=$PETSC_PRELOAD matlab -nojvm -batch \
           'run tests/testall' 2>&1 | tee  -a ../matlab_output.txt) && \
           [ -z "$(egrep '  \*\*\*\*\* test|Error (in|using) |Undefined function \S+ for input arguments|Invalid file identifier.' matlab_output.txt 2> /dev/null)" ]
 

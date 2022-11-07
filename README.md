@@ -3,15 +3,14 @@ OVERVIEW
 
 petsc4m-lite is an interface of PETSc for MATLAB and GNU Octave on Linux or MacOSX.
 Data exchanges are done through memory whenever possible, or through files if PETSc is
-prone to crashing (e.g., when running MATLAB in the desktop environment). There are
-two main top-level functions: `gmresPetsc` and `gmresHypre`. The former uses
-ILU0 as preconditioner, and the latter uses BoomerAMG in Hypre as preconditioner.
-Both solvers use right-preconditioning, so that the true residuals are used for
-the convergence criteria. Their inputs can be either MATLAB `sparse` or a CRS
-`struct`. These functions can be easily adapted to use other KSP solvers and
-preconditioners supported by PETSc, except that PETSc may not use the true
-residual as the convergence tolerance in most cases (such as bicgstab even
-with right-preconditionning).
+prone to crashing (e.g., when running MATLAB with JAVA). There are two main top-level
+functions: `gmresPetsc` and `gmresHypre`. The former uses ILU0 as preconditioner,
+and the latter uses BoomerAMG in Hypre as preconditioner. Both solvers use
+right-preconditioning, so that the true residuals are used for the convergence
+criteria. Their inputs can be either MATLAB `sparse` or a CRS `struct`. These
+functions can be easily adapted to use other KSP solvers and preconditioners
+supported by PETSc, except that PETSc may not use the true residual as the
+convergence tolerance in most cases (such as bicgstab even with right-preconditionning).
 
 EXAMPLE
 =======
@@ -57,13 +56,13 @@ following order:
 NOTES ON PETSC4M-LITE IN MATLAB
 ===============================
 
-When running MATLAB in desktop mode, petsc4m-lite always pass data through
+When running MATLAB with JAVA enabled, petsc4m-lite always pass data through
 files for robustness. When solving larger systems in MATLAB, you may prefer to
 pass data through memory. In this case, you can opt to use Octave. If you must
 use MATLAB, you need to take some extra steps to resolve potential conflicts
 of the LAPACK and MPI libraries used by MATLAB and PETSc. In particular, you need to
 
-1) disable the desktop environment when launching MATLAB,
+1) disable JVM when launching MATLAB,
 2) tell MATLAB to preload the LAPACK shared library used by PETSc on Linux systems, and
 3) tell MATLAB to preload the MPICH libraries used by the Parallel Computing Toolbox
   on Linux systems if you have installed the Toolbox of MATLAB and the PETSc library
@@ -71,14 +70,14 @@ of the LAPACK and MPI libraries used by MATLAB and PETSc. In particular, you nee
 
 For example, on Mac OS X, you imply need to run `matlab` using command
 ```
-matlab -nodesktop
+matlab -nojvm
 ```
 
 On Linux, if PETSc was installed using Anaconda/Miniconda on Linux, which does use
 MPICH, you need to to start MATLAB with the following command:
 
 ```
-LD_PRELOAD=$CONDA_PREFIX/lib/liblapack.so.3:$MATLAB_ROOT/bin/glnxa64/libmpi.so.12:$MATLAB_ROOT/bin/glnxa64/libmpifort.so.12 matlab -nodesktop
+LD_PRELOAD=$CONDA_PREFIX/lib/liblapack.so.3:$MATLAB_ROOT/bin/glnxa64/libmpi.so.12:$MATLAB_ROOT/bin/glnxa64/libmpifort.so.12 matlab -nojvm
 ```
 
 where `$CONDA_PREFIX` is typically `$HOME/opt/anaconda3` or `$HOME/opt/miniconda3`
@@ -88,7 +87,7 @@ specific MATLAB version.
 If you use the PETSc library distributed with Ubuntu, which uses OpenMPI, then
 you only need to preload LAPACK as follows:
 ```
-LD_PRELOAD=/lib/x86_64-linux-gnu/liblapack.so.3 matlab -nodesktop
+LD_PRELOAD=/lib/x86_64-linux-gnu/liblapack.so.3 matlab -nojvm
 ```
 For your own installation of PETSc on Linux, you can find out the LAPACK library
 used by PETSc using the command `ldd /path/to/libpetsc*.so | grep lapack`. If you

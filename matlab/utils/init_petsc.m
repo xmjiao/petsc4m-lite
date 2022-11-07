@@ -31,10 +31,10 @@ end
 function tf = use_mexfiles
 % Check whether it is safe to use MEX files
 
-if exist('OCTAVE_VERSION', 'builtin') || ~usejava('desktop') && ismac
+if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ismac
     tf = true;
     return
-elseif usejava('desktop')
+elseif usejava('jvm')
     tf = false;
     return
 end
