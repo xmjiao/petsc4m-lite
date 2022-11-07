@@ -12,7 +12,7 @@ if ~exist('isnewer', 'file') || ...
         ' crs_createFromAIJ.c crs_createFromAIJ_mex.c -output ' target];
 
     if exist('OCTAVE_VERSION', 'builtin')
-        build_cmd = strrep(['m' build_cmd], 'CC=cc ', '');
+        build_cmd = ['m' build_cmd];
     end
     disp(build_cmd);
     eval(build_cmd); %#ok<EVLEQ>

@@ -18,7 +18,7 @@ if ~exist('isnewer', 'file') || ...
         ' LINKLIBS=''' dylibdir(LIBDIR) ' -lpetsc' LIBEXT ' ' LIBEXTRA ' $LINKLIBS'''];
 
     if exist('OCTAVE_VERSION', 'builtin')
-        build_cmd = strrep(['m' build_cmd], 'CC=cc ', '');
+        build_cmd = ['m' build_cmd];
     end
     disp(build_cmd);
     eval(build_cmd); %#ok<EVLEQ>
