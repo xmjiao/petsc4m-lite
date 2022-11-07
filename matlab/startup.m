@@ -1,6 +1,9 @@
 function startup
 % startup script for petsc4m_root
 
+if exist('OCTAVE_VERSION', 'builtin')
+    addpath(fullfile(petsc4m_root, 'utils', 'octave'));
+end
 try
     % Run startup only if PETSc was configured properly
     run(fullfile(petsc4m_root, 'utils', 'obtain_petsc_cc'));
@@ -12,9 +15,6 @@ addpath(petsc4m_root);
 
 % Load its own submodules last for higher priority
 addpath(fullfile(petsc4m_root, 'utils'));
-if exist('OCTAVE_VERSION', 'builtin')
-    addpath(fullfile(petsc4m_root, 'utils', 'octave'));
-end
 addpath(fullfile(petsc4m_root, 'KSP'));
 addpath(fullfile(petsc4m_root, 'PC'));
 addpath(fullfile(petsc4m_root, 'CRS'));
