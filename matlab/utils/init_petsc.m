@@ -5,8 +5,7 @@ if ~use_mexfiles; return; end
 
 addpath(fullfile(petsc4m_root, 'sys'));
 
-if exist(['petscInitialize.' mexext], 'file') && ...
-    isequal(which('petscInitialize'), which(['petscInitialize.' mexext]))
+if exist(['petscInitialize.' mexext], 'file')
     try
         if ~petscInitialized
             petscInitialize;
