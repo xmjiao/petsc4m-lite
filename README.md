@@ -58,9 +58,9 @@ NOTES ON PETSC4M-LITE IN MATLAB
 
 When running MATLAB with JAVA enabled, petsc4m-lite always pass data through
 files for robustness. When solving larger systems in MATLAB, you may prefer to
-pass data through memory. In this case, you can opt to use Octave. If you must
-use MATLAB, you need to take some extra steps to resolve potential conflicts
-of the LAPACK and MPI libraries used by MATLAB and PETSc. In particular, you need to
+pass data through memory. In this case, you need to take some extra steps to
+resolve potential conflicts of the LAPACK and MPI libraries used by MATLAB
+and PETSc. In particular, you need to
 
 1) disable JVM when launching MATLAB,
 2) tell MATLAB to preload the LAPACK shared library used by PETSc on Linux systems, and
@@ -93,3 +93,9 @@ For your own installation of PETSc on Linux, you can find out the LAPACK library
 used by PETSc using the command `ldd /path/to/libpetsc*.so | grep lapack`. If you
 are unsure whether PETSc was built using an MPICH variant, it is safe to preload
 the MPI libraries.
+
+NOTES ON PETSC4M-LITE IN MATLAB
+===============================
+
+PETSC4M-LITE works with Octave on Linux and Mac, and it always pass data through
+memory. It is recommended that you install Octave using Miniconda.
