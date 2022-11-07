@@ -15,7 +15,7 @@ addpath(fullfile(petsc4m_root, 'CRS', 'exe'));
 
 if isempty(getenv('NG_NOCOMPILE'))
     % Do not compile if NG_NOCOMPILE is defined
-    build_pets4m;
+    build_petsc4m;
 end
 
 init_petsc();
