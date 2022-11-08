@@ -2,13 +2,11 @@ OVERVIEW
 ========
 
 petsc4m-lite is an interface of PETSc for MATLAB and GNU Octave on Linux or MacOSX.
-Data exchanges are done through memory whenever possible, or through files if PETSc is
-prone to crashing (e.g., when running MATLAB with JAVA). There are two main top-level
-functions: `gmresPetsc` and `gmresHypre`. The former uses ILU0 as preconditioner,
-and the latter uses BoomerAMG in Hypre as preconditioner. Both solvers use
-right-preconditioning, so that the true residuals are used for the convergence
-criteria. Their inputs can be either MATLAB `sparse` or a CRS `struct`. These
-functions can be easily adapted to use other KSP solvers and preconditioners
+There are two main top-level functions: `gmresPetsc` and `gmresHypre`. The former uses
+ILU0 as preconditioner, and the latter uses BoomerAMG in Hypre as preconditioner. Both
+solvers use right-preconditioning, so that the true residuals are used for the
+convergence criteria. Their inputs can be either MATLAB `sparse` or a CRS `struct`.
+These functions can be easily adapted to use other KSP solvers and preconditioners
 supported by PETSc, except that PETSc may not use the true residual as the
 convergence tolerance in most cases (such as bicgstab even with right-preconditionning).
 
@@ -56,46 +54,17 @@ following order:
 NOTES ON PETSC4M-LITE IN MATLAB
 ===============================
 
-When running MATLAB with JAVA enabled, petsc4m-lite always pass data through
-files for robustness. When solving larger systems in MATLAB, you may prefer to
-pass data through memory. In this case, you need to take some extra steps to
-resolve potential conflicts of the LAPACK and MPI libraries used by MATLAB
-and PETSc. In particular, you need to
-
-1) disable JVM when launching MATLAB,
-2) tell MATLAB to preload the LAPACK shared library used by PETSc on Linux systems, and
-3) tell MATLAB to preload the MPICH libraries used by the Parallel Computing Toolbox
-  on Linux systems if you have installed the Toolbox of MATLAB and the PETSc library
-  was linked with a binary-compatible variant of MPICH.
-
-For example, on Mac OS X, you imply need to run `matlab` using command
+When running MATLAB on Linux or with JAVA enabled, petsc4m-lite pass data through
+files between MATLAB and PETSc for robustness. However, on MacOSX, data will be
+passed through memory when MATLAB is started without Java using the command
 ```
 matlab -nojvm
 ```
+This may be better for solving large systems. On Linux systems, unfortunately,
+your only option would be to use Octave (see below).
 
-On Linux, if PETSc was installed using Anaconda/Miniconda on Linux, which does use
-MPICH, you need to to start MATLAB with the following command:
-
-```
-LD_PRELOAD=$CONDA_PREFIX/lib/liblapack.so.3:$MATLAB_ROOT/bin/glnxa64/libmpi.so.12:$MATLAB_ROOT/bin/glnxa64/libmpifort.so.12 matlab -nojvm
-```
-
-where `$CONDA_PREFIX` is typically `$HOME/miniconda3` or `$HOME/opt/anaconda3`,
-and `$MATLAB_ROOT` is typically `/usr/local/MATLAB/$MATMAB_VERSION` for your
-specific MATLAB version.
-
-If you use the PETSc library distributed with Ubuntu, which uses OpenMPI, then
-you only need to preload LAPACK as follows:
-```
-LD_PRELOAD=/lib/x86_64-linux-gnu/liblapack.so.3 matlab -nojvm
-```
-For your own installation of PETSc on Linux, you can find out the LAPACK library
-used by PETSc using the command `ldd /path/to/libpetsc*.so | grep lapack`. If you
-are unsure whether PETSc was built using an MPICH variant, it is safe to preload
-the MPI libraries.
-
-NOTES ON PETSC4M-LITE IN MATLAB
+NOTES ON PETSC4M-LITE IN OCTAVE
 ===============================
 
-PETSC4M-LITE works with Octave on Linux and Mac, and it always pass data through
-memory. It is recommended that you install Octave using Miniconda.
+PETSC4M-LITE works with Octave on Linux and Mac. In this case, data is passed
+through memory. It is recommended that you install Octave using Miniconda.

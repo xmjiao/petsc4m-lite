@@ -30,38 +30,6 @@ end
 function tf = use_mexfiles
 % Check whether it is safe to use MEX files
 
-if exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ismac
-    tf = true;
-    return
-elseif usejava('jvm')
-    tf = false;
-    return
-end
-
-tf = true;
-
-% Check LAPACK
-[~, ~, ~, ~, ~, LIBDIR, LIBEXT] = obtain_petsc_cc;
-[~, result] = system(['ldd ' LIBDIR '/libpetsc' LIBEXT '.so']);
-liblapack = regexp(result, '\S+liblapack\.\S+', 'match', 'once');
-
-missed = '';
-if ~isempty(liblapack) && ~contains(getenv('LD_PRELOAD'), liblapack)
-    tf = false;
-    missed = [missed ':' liblapack];
-end
-
-% Check whether libmpi.so exists in matlabroot and whether it was preloaded
-mpilib = dir(fullfile(matlabroot, 'bin', 'glnxa64', 'libmpi*.so.*'));
-for i=1:length(mpilib)
-    if contains(result, mpilib(i).name) && ~contains(getenv('LD_PRELOAD'), mpilib(i).name)
-        tf = false;
-        missed = [missed ':' mpilib(i).folder '/' mpilib(i).name]; %#ok<AGROW>
-    end
-end
-
-if ~tf
-    fprintf(1, 'Your LD_PRELOAD is %s.\n', getenv('LD_PRELOAD'));
-    fprintf(1, 'To use MEX mode of PETSc, please add %s to LD_PRELOAD and restart MATLAB.\n', missed(2:end));
-end
+tf = exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ismac
+return
 end
