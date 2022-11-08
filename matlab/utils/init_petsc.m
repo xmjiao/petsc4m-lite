@@ -30,6 +30,6 @@ end
 function tf = use_mexfiles
 % Check whether it is safe to use MEX files
 
-tf = exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ismac
+tf = exist('OCTAVE_VERSION', 'builtin') || ~usejava('jvm') && ismac;
 return
 end
