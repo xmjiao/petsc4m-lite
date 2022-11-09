@@ -83,37 +83,44 @@ else
     b = varargin{next_index};
 end
 
-if nargin >= next_index + 1 && ~isempty(varargin{next_index + 1})
-    opts = [' -ksp_gmres_restart ' int2str(varargin{next_index + 1})];
+
+next_index = next_index + 1;
+if nargin >= next_index && ~isempty(varargin{next_index})
+    opts = [' -ksp_gmres_restart ' int2str(varargin{next_index})];
 else
     opts = ' -ksp_gmres_restart 30';
 end
 
-if nargin >= next_index + 2 && ~isempty(varargin{next_index + 2})
-    rtol = varargin{next_index + 2};
+next_index = next_index + 1;
+if nargin >= next_index && ~isempty(varargin{next_index})
+    rtol = varargin{next_index};
 else
     rtol = PetscReal(0);
 end
 
-if nargin >= next_index + 3 && ~isempty(varargin{next_index + 3})
-    maxiter = int32(varargin{next_index + 3});
+next_index = next_index + 1;
+if nargin >= next_index && ~isempty(varargin{next_index})
+    maxiter = int32(varargin{next_index});
 else
     maxiter = int32(0);
 end
 
-if nargin >= next_index + 4 && ~isempty(varargin{next_index + 4})
-    x0 = varargin{next_index + 4};
+next_index = next_index + 1;
+if nargin >= next_index && ~isempty(varargin{next_index})
+    x0 = varargin{next_index};
 else
     x0 = PetscScalar(zeros(0, 1));
 end
 
-if nargin >= next_index + 5 && ~isempty(varargin{next_index + 5})
-    opts = [opts ' -pc_hypre_boomeramg_coarsen_type ' varargin{next_index + 5}];
+next_index = next_index + 1;
+if nargin >= next_index && ~isempty(varargin{next_index})
+    opts = [opts ' -pc_hypre_boomeramg_coarsen_type ' varargin{next_index}];
     % Use the default, which is HMIS
 end
 
-if nargin >= next_index + 6 && ~isempty(varargin{next_index + 6})
-    opts = [opts ' -pc_hypre_boomeramg_interp_type ' varargin{next_index + 6}];
+next_index = next_index + 1;
+if nargin >= next_index && ~isempty(varargin{next_index})
+    opts = [opts ' -pc_hypre_boomeramg_interp_type ' varargin{next_index}];
 elseif contains(opts, 'MIS')
     % If user specify HMIS or PMIS, choose FF1 interpolation by default
     opts = [opts ' -pc_hypre_boomeramg_interp_type FF1'];
@@ -124,12 +131,13 @@ else
     % Use the default, which is extended+i interpolation
 end
 
-if nargin >= next_index + 7 && ~isempty(varargin{next_index + 7})
-    switch varargin{next_index + 7}
+next_index = next_index + 1;
+if nargin >= next_index && ~isempty(varargin{next_index})
+    switch varargin{next_index}
         case {'Schwarz-smoothers', 'Pilut', 'ParaSails', 'Euclid'}
-            opts = [opts ' -pc_hypre_boomeramg_smooth_type ' varargin{next_index + 7}];
+            opts = [opts ' -pc_hypre_boomeramg_smooth_type ' varargin{next_index}];
         otherwise
-            opts = [opts ' -pc_hypre_boomeramg_relax_type_all ' varargin{next_index + 7}];
+            opts = [opts ' -pc_hypre_boomeramg_relax_type_all ' varargin{next_index}];
     end
 else
     % Use the default, which is l1-Gauss-Seidel
