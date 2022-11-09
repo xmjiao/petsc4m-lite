@@ -20,11 +20,11 @@ function varargout = gmresHypre(varargin)
 %    takes an initial solution in x0. Use 0 or [] to preserve the default
 %    initial solution (all zeros).
 %
-%    x = gmresHypre(A, b, restart, rtol, maxit, x0, coarsen, interp)
+%    x = gmresHypre(A, b, restart, rtol, maxiter, x0, coarsen, interp)
 %    allows you to specify different coarsening and interpolation
 %    strategies for BoomerAMG.
 %
-%    x = gmresHypre(A, b, restart, rtol, maxit, x0, coarsen, interp, smoother)
+%    x = gmresHypre(A, b, restart, rtol, maxiter, x0, coarsen, interp, smoother)
 %    allows you to specify different types of smoothing strategies for BoomerAMG.
 %
 %    The available coarsening strategies include:
@@ -58,12 +58,12 @@ function varargout = gmresHypre(varargin)
 %    test (typically preconditioned residual), and the execution times in
 %    setup and solve.
 %
-% Note: If this function is running through files, the execution times are
-%       always printed out to the screen.
+% Note: If the low-level function petscSolveCRS is called as a standalone executable,
+%       the execution times are  always printed out to the screen.
 %
-% SEE ALSO: gmresPetsc, petscSolveCRS
+% SEE ALSO: gmresILU, petscSolveCRS
 
-if nargin==0
+if nargin == 0
     help gmresHypre
     return;
 end
@@ -77,7 +77,7 @@ else
 end
 next_index = 2;
 
-if nargin<next_index
+if nargin < next_index
     error('The right hand-side must be specified');
 else
     b = varargin{next_index};
@@ -136,7 +136,8 @@ else
 end
 
 [varargout{1:nargout}] = petscSolveCRS(Arows, Acols, PetscScalar(Avals), ...
-    PetscScalar(b), 'gmres', PetscReal(rtol), maxiter, 'hypre', 'right', PetscScalar(x0), opts);
+    PetscScalar(b), PETSC_KSPGMRES, PetscReal(rtol), maxiter, PETSC_PCHYPRE, ...
+    PETSC_PC_RIGHT, PetscScalar(x0), opts);
 end
 
 function test %#ok<DEFNU>

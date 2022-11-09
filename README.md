@@ -2,23 +2,23 @@ OVERVIEW
 ========
 
 petsc4m-lite is an interface of PETSc for MATLAB and GNU Octave on Linux or MacOSX.
-There are two main top-level functions: `gmresPetsc` and `gmresHypre`. The former uses
-ILU0 as preconditioner, and the latter uses BoomerAMG in Hypre as preconditioner. Both
-solvers use right-preconditioning, so that the true residuals are used for the
-convergence criteria. Their inputs can be either MATLAB `sparse` or a CRS `struct`.
-These functions can be easily adapted to use other KSP solvers and preconditioners
-supported by PETSc, except that PETSc may not use the true residual as the
-convergence tolerance in most cases (such as bicgstab even with right-preconditionning).
+Its main top-level function is `petscSolve`, which uses the direct solver MUMPS by
+default but can be configured to call any combination of solves and preconditioners
+available in PETSc. For convenience, petsc4m-lite provides two additional top-level
+functions, `gmresILU` and `gmresHypre`, which use ILU0 and BoomerAMG as right
+preconditioners, respectively. In all cases, the true residuals are used for the
+convergence criteria. The inputs matrices can be either a MATLAB `sparse` matrix or
+a CRS `struct` containing `row_ptr`, `col_ind`, and `vals` fields.
 
 EXAMPLE
 =======
 
-The following example illustrates how to use `gmresPetsc`:
+The following example illustrates how to use `gmresILU`:
 ```
   A = gallery('wathen', 10, 10);
   b = A * ones(length(A), 1);
   rtol = 10*eps(class(PetscReal(0))).^(1/2);
-  [x,flag,relres,iter,reshis,times] = gmresPetsc(A, b, [], rtol);
+  [x,flag,relres,iter,reshis,times] = gmresILU(A, b, [], rtol);
 ```
 
 SETTING UP PETSC4M-LITE
