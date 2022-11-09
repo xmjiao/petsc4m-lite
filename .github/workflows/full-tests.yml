@@ -35,9 +35,9 @@ jobs:
         run: |  # test
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mtest
           (docker run -v $PWD/..:/root/shared -w /root/shared/${{ steps.extract_tag.outputs.repo }}/matlab ${{ secrets.DOCKER_HUB_USERNAME }}/mtest \
-           matlab -nodisplay -batch 'ls; run tests/testall') 2>&1 | tee matlab_output.txt && \
+           octave --no-gui --eval 'pwd; ls; run tests/testall') 2>&1 | tee matlab_output.txt && \
           (docker run -v $PWD/..:/root/shared -w /root/shared/${{ steps.extract_tag.outputs.repo }}/matlab ${{ secrets.DOCKER_HUB_USERNAME }}/mtest \
-           octave --no-gui --eval 'run tests/testall') 2>&1 | tee matlab_output.txt && \
+           matlab -nodisplay -batch 'pwd; ls; run tests/testall') 2>&1 | tee matlab_output.txt && \
           [ -z "$(egrep '  \*\*\*\*\* test|Error (in|using) |Undefined function \S+ for input arguments|Invalid file identifier.' matlab_output.txt 2> /dev/null)" ]
 
       - name: Check warnings
