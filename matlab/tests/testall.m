@@ -20,11 +20,13 @@ else
     files = varargin;
 end
 
-for i = 1:length(files)
-    fprintf(1, 'Testing %s:\n', files{i});
-    [srcdir, ~] = fileparts(files{i});
-    if ~isempty(srcdir); cd(srcdir); end
-    mtest(files{i});
+for iter = 1:3
+    for i = 1:length(files)
+        fprintf(1, 'Testing %s:\n', files{i});
+        [srcdir, ~] = fileparts(files{i});
+        if ~isempty(srcdir); cd(srcdir); end
+        mtest(files{i});
+    end
 end
 
 if exist('OCTAVE_VERSION', 'builtin') % Bypass a bug in Octave
