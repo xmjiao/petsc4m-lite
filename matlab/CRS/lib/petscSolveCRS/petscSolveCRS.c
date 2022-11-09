@@ -3,6 +3,7 @@
 #include "m2c.h"
 #include "mpi.h"
 #include "petsc4m.h"
+
 static const char cv[9] = {'s', 'y', 'm', 'm', 'e', 't', 'r', 'i', 'c'};
 
 static void b_m2c_error(int varargin_3);
@@ -673,7 +674,7 @@ void petscSolveCRS_10args(
   KSP t_ksp;
   Mat AMat;
   Mat t_mat;
-  PetscOptions t_opts;
+  PetscOptions *t_opts;
   Vec bVec;
   Vec t_vec;
   Vec x0Vec;
@@ -826,7 +827,7 @@ void petscSolveCRS_11args(
   KSP ksp;
   KSP t_ksp;
   Mat AMat;
-  PetscOptions t_opts;
+  PetscOptions *t_opts;
   Vec bVec;
   Vec t_vec;
   Vec x0Vec;
@@ -1081,7 +1082,7 @@ void petscSolveCRS_4args(const emxArray_int32_T *Arows,
   Mat t_mat;
   PC t_pc;
   PetscObject t_obj;
-  PetscOptions t_opts;
+  PetscOptions *t_opts;
   double b_t;
   double t;
   int iroa;
@@ -1212,7 +1213,7 @@ void petscSolveCRS_5args(const emxArray_int32_T *Arows,
   }
   KSP t_ksp;
   Mat t_mat;
-  PetscOptions t_opts;
+  PetscOptions *t_opts;
   int iroa;
   iroa = (INSERT_VALUES);
   VecSetValues(bVec, b->size[0], &idx_data[0], &b_data[0], iroa);
@@ -1345,7 +1346,7 @@ void petscSolveCRS_6args(const emxArray_int32_T *Arows,
   for (yk = 0; yk < b_n; yk++) {
     idx_data[yk] = y_data[yk];
   }
-  PetscOptions t_opts;
+  PetscOptions *t_opts;
   int iroa;
   iroa = (INSERT_VALUES);
   VecSetValues(bVec, b->size[0], &idx_data[0], &b_data[0], iroa);
@@ -1556,7 +1557,7 @@ void petscSolveCRS_7args(const emxArray_int32_T *Arows,
   }
   KSP t_ksp;
   Mat t_mat;
-  PetscOptions t_opts;
+  PetscOptions *t_opts;
   int iroa;
   iroa = (INSERT_VALUES);
   VecSetValues(bVec, b->size[0], &idx_data[0], &b_data[0], iroa);
@@ -1684,7 +1685,7 @@ void petscSolveCRS_8args(const emxArray_int32_T *Arows,
   for (k = 0; k < yk; k++) {
     idx_data[k] = y_data[k];
   }
-  PetscOptions t_opts;
+  PetscOptions *t_opts;
   int iroa;
   iroa = (INSERT_VALUES);
   VecSetValues(bVec, b->size[0], &idx_data[0], &b_data[0], iroa);
@@ -1870,7 +1871,7 @@ void petscSolveCRS_9args(const emxArray_int32_T *Arows,
   }
   KSP t_ksp;
   Mat t_mat;
-  PetscOptions t_opts;
+  PetscOptions *t_opts;
   int iroa;
   iroa = (INSERT_VALUES);
   VecSetValues(bVec, b->size[0], &idx_data[0], &b_data[0], iroa);
