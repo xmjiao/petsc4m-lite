@@ -5,7 +5,7 @@ filebase = tempname;
 infile = [filebase '_petscSolveCRS_in.mat'];
 outfile = [filebase '_petscSolveCRS_out.mat'];
 
-cleanup = onCleanup(@()delete([filebase  '*.mat']));
+cleanup = onCleanup(@()delete([filebase '*.mat']));
 
 mdir = fileparts(which('run_petscSolveCRS_exe.m'));
 if isequal(mdir, pwd)

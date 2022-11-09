@@ -7,11 +7,11 @@ function testall(varargin)
 %  the MATLAB files with a built-in test block.
 
 olddir = pwd;
-cleanup = onCleanup(@()cd(olddir));
 cd(petsc4m_root);
+cleanup = onCleanup(@()cd(olddir));
 
-if ~exist('mtest.m', 'file') || ~exist('grep_file.m', 'file')
-    addpath ../../momp2cpp/utils
+if exist('OCTAVE_VERSION', 'builtin') % Bypass a bug in Octave
+    addpath(fullfile(petsc4m_root, 'tests'));
 end
 
 if isempty(varargin)
@@ -25,6 +25,10 @@ for i = 1:length(files)
     [srcdir, ~] = fileparts(files{i});
     if ~isempty(srcdir); cd(srcdir); end
     mtest(files{i});
+end
+
+if exist('OCTAVE_VERSION', 'builtin') % Bypass a bug in Octave
+    rmpath(fullfile(petsc4m_root, 'tests'));
 end
 
 end

@@ -15,7 +15,7 @@ if ~exist('isnewer', 'file') || ...
         build_cmd = ['m' build_cmd];
     end
     disp(build_cmd);
-    eval(build_cmd); %#ok<EVLEQ>
+    eval(build_cmd);
 else
     fprintf(1, [target(length(fileparts(target)) - 3:end) ' is up to date.\n']);
 end

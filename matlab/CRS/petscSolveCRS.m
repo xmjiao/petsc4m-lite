@@ -106,27 +106,27 @@ Avals = varargin{3};
 b = varargin{4};
 
 % Setup KSP
-if nargin<5
+if nargin < 5
     solver = '';
 else
     solver = varargin{5};
 end % Use default
-if nargin<6
+if nargin < 6
     rtol = PetscReal(0);
 else
     rtol = varargin{6};
 end
-if nargin<7
+if nargin < 7
     maxit = int32(0);
 else
     maxit = varargin{7};
 end
-if nargin<8
+if nargin < 8
     pctype = '';
 else
     pctype = varargin{8};
 end
-if nargin<9
+if nargin < 9
     pcopt = '';
 else
     pcopt = varargin{9};
@@ -135,7 +135,7 @@ end
 AMat = petscMatCreateAIJFromCRS(Arows, Acols, Avals);
 bVec = petscVecCreateFromArray(b);
 
-if nargin<10 || isempty(varargin{10})
+if nargin < 10 || isempty(varargin{10})
     x0Vec = PETSC_NULL_VEC;
     xVec = petscVecDuplicate(bVec);
 else
@@ -144,7 +144,7 @@ else
     xVec = x0Vec;
 end
 
-if nargin<11
+if nargin < 11
     opts = '';
 else
     opts = varargin{11};

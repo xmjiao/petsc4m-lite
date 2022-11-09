@@ -2,23 +2,23 @@ OVERVIEW
 ========
 
 petsc4m-lite is an interface of PETSc for MATLAB and GNU Octave on Linux or MacOSX.
-There are two main top-level functions: `gmresPetsc` and `gmresHypre`. The former uses
-ILU0 as preconditioner, and the latter uses BoomerAMG in Hypre as preconditioner. Both
-solvers use right-preconditioning, so that the true residuals are used for the
-convergence criteria. Their inputs can be either MATLAB `sparse` or a CRS `struct`.
-These functions can be easily adapted to use other KSP solvers and preconditioners
-supported by PETSc, except that PETSc may not use the true residual as the
-convergence tolerance in most cases (such as bicgstab even with right-preconditionning).
+Its main top-level function is `petscSolve`, which uses the direct solver MUMPS by
+default but can be configured to call any combination of solves and preconditioners
+available in PETSc. For convenience, petsc4m-lite provides two additional top-level
+functions, `gmresILU` and `gmresHypre`, which use ILU0 and BoomerAMG as right
+preconditioners, respectively. In all cases, the true residuals are used for the
+convergence criteria. The inputs matrices can be either a MATLAB `sparse` matrix or
+a CRS `struct` containing `row_ptr`, `col_ind`, and `vals` fields.
 
 EXAMPLE
 =======
 
-The following example illustrates how to use `gmresPetsc`:
+The following example illustrates how to use `gmresILU`:
 ```
   A = gallery('wathen', 10, 10);
   b = A * ones(length(A), 1);
   rtol = 10*eps(class(PetscReal(0))).^(1/2);
-  [x,flag,relres,iter,reshis,times] = gmresPetsc(A, b, [], rtol);
+  [x,flag,relres,iter,reshis,times] = gmresILU(A, b, [], rtol);
 ```
 
 SETTING UP PETSC4M-LITE
@@ -66,5 +66,23 @@ your only option would be to use Octave (see below).
 NOTES ON PETSC4M-LITE IN OCTAVE
 ===============================
 
-PETSC4M-LITE works with Octave on Linux and Mac. In this case, data is passed
+petsc4m-lite works with Octave on Linux and Mac. In this case, data is passed
 through memory. It is recommended that you install Octave using Miniconda.
+
+AUTHOR and CITATION
+===================
+
+petsc4m-lite was developed and maintained by Xiangmin (Jim) Jiao
+<xiangmin.jiao@stonybrook.edu>. It was mainly used for comparative research.
+If you found the software useful, please cite the following paper.
+
+@article{ghai2019comparison,
+  title={A comparison of preconditioned Krylov subspace methods for large-scale nonsymmetric linear systems},
+  author={Ghai, Aditi and Lu, Cao and Jiao, Xiangmin},
+  journal={Numerical Linear Algebra with Applications},
+  volume={26},
+  number={1},
+  pages={e2215},
+  year={2019},
+  publisher={Wiley Online Library}
+}

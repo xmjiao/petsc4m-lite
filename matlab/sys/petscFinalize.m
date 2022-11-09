@@ -23,7 +23,7 @@ if ~isempty(coder.target)
     coder.cinclude('petsc4m.h');
     errCode = coder.ceval('PetscFinalize');
 
-    toplevel = nargout>1;
+    toplevel = nargout > 1;
     if errCode && (toplevel || m2c_debug)
         m2c_error('petsc:RuntimeError', 'PetscFinalize returned error code %d\n', errCode)
     end

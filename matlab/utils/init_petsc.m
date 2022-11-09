@@ -1,9 +1,9 @@
 function init_petsc(varargin)
 %INIT_PETSC Load Petsc4m-Lite into MATLAB/Octave for execution using mex files.
 
-if ~use_mexfiles; return; end
-
 addpath(fullfile(petsc4m_root, 'sys'));
+
+if ~use_mexfiles; return; end
 
 if exist(['petscInitialize.' mexext], 'file')
     try
