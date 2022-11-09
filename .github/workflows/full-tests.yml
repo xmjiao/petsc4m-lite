@@ -35,9 +35,9 @@ jobs:
         run: |  # test
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mtest
           (docker run -v $PWD/..:/root/shared -w /root/shared/petsc4m-lite/matlab ${{ secrets.DOCKER_HUB_USERNAME }}/mtest \
-           octave-cli --eval 'run tests/testall') 2>&1 | tee matlab_output.txt && \
-          (docker run -v $PWD/..:/root/shared -w /root/shared/petsc4m-lite/matlab ${{ secrets.DOCKER_HUB_USERNAME }}/mtest \
            matlab -batch 'run tests/testall') 2>&1 | tee matlab_output.txt && \
+          (docker run -v $PWD/..:/root/shared -w /root/shared/petsc4m-lite/matlab ${{ secrets.DOCKER_HUB_USERNAME }}/mtest \
+           octave-cli --eval 'run tests/testall') 2>&1 | tee matlab_output.txt && \
           [ -z "$(egrep '  \*\*\*\*\* test|Error (in|using) |Undefined function \S+ for input arguments|Invalid file identifier.' matlab_output.txt 2> /dev/null)" ]
 
       - name: Check warnings
