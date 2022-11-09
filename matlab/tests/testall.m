@@ -7,7 +7,14 @@ function testall(varargin)
 %  the MATLAB files with a built-in test block.
 
 olddir = pwd;
-cleanup = onCleanup(@()cd(olddir));
+
+if exist('OCTAVE_VERSION', 'builtin') % Bypass a bug in Octave
+    addpath(fullfile(petsc4m_root, 'tests'));
+    cleanup = onCleanup(@()cd(olddir); rmpath(fullfile(petsc4m_root, 'tests')));
+else
+    cleanup = onCleanup(@()cd(olddir));
+end
+
 cd(petsc4m_root);
 
 if isempty(varargin)
