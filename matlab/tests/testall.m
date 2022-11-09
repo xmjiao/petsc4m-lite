@@ -10,10 +10,6 @@ olddir = pwd;
 cleanup = onCleanup(@()cd(olddir));
 cd(petsc4m_root);
 
-if ~exist('mtest.m', 'file') || ~exist('grep_file.m', 'file')
-    addpath ../../momp2cpp/utils
-end
-
 if isempty(varargin)
     files = grep_files('./*.m', '\n%!test');
 else
