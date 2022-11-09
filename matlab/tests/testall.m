@@ -10,12 +10,10 @@ olddir = pwd;
 
 if exist('OCTAVE_VERSION', 'builtin') % Bypass a bug in Octave
     addpath(fullfile(petsc4m_root, 'tests'));
-    cleanup = onCleanup(@()cd(olddir); rmpath(fullfile(petsc4m_root, 'tests')));
-else
-    cleanup = onCleanup(@()cd(olddir));
 end
 
 cd(petsc4m_root);
+cleanup = onCleanup(@()cd(olddir), rmpath(fullfile(petsc4m_root, 'tests')));
 
 if isempty(varargin)
     files = grep_files('./*.m', '\n%!test');
