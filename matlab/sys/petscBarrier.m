@@ -24,7 +24,7 @@ if ~isempty(coder.target)
 
     errCode = coder.ceval('PetscBarrier', t_obj);
 
-    toplevel = nargout>1;
+    toplevel = nargout > 1;
 
     if errCode && (toplevel || m2c_debug)
         m2c_error('petsc:RuntimeError', 'petscBarirer returned error code %d\n', errCode)

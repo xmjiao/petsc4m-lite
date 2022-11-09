@@ -75,7 +75,7 @@ if ~isempty(def)
     LIBEXT = strtrim(regexprep(def, pat, '$1'));
 end
 
-if ~isempty(strfind(PETSC_DIR, 'conda'))
+if ~isempty(strfind(PETSC_DIR, 'conda')) %#ok<STREMP>
     PCC = 'cc';
     CXX = 'c++';
     LIBEXTRA = '';

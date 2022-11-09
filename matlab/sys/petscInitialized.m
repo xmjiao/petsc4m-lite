@@ -22,7 +22,7 @@ if ~isempty(coder.target)
     errCode = coder.ceval('PetscInitialized', coder.wref(b));
     initialized = coder.ceval(' ', b);
 
-    toplevel = nargout>2;
+    toplevel = nargout > 2;
     if errCode && (toplevel || m2c_debug)
         m2c_error('petsc:RuntimeError', 'PetscInitialized returned error code %d\n', errCode)
     end

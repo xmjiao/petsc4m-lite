@@ -8,4 +8,4 @@ function b = contains(s, pat)
 %   size. If PATTERN is nonscalar, CONTAINS returns true if it finds any
 %   element of PATTERN in S.
 
-b = ~isempty(strfind(s, pat));
+b = ~isempty(strfind(s, pat)); %#ok<STREMP>

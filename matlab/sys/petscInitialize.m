@@ -28,7 +28,7 @@ if ~isempty(coder.target)
 
     errCode = coder.ceval('PetscInitializeNoPointers', int32(0), PETSC_NULL, PETSC_NULL, PETSC_NULL);
 
-    toplevel = nargout>1;
+    toplevel = nargout > 1;
     if errCode && (toplevel || m2c_debug)
         m2c_error('petsc:RuntimeError', 'PetscInitializeNoPointers returned error code %d\n', errCode)
     end

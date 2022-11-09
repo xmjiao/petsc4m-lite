@@ -20,17 +20,17 @@ function varargout = crs_matrix(varargin) %#codegen
 % Note: This function does not support multithreading. If there is no input,
 %   this function creates a type declaration to be used with codegen.
 
-if nargin==0
-    varargout{1} = coder.cstructname(struct('row_ptr', coder.typeof(int32(0), [inf,1]), ...
-        'col_ind', coder.typeof(int32(0), [inf,1]), ...
-        'val', coder.typeof(0, [inf,1]), 'nrows', int32(0), 'ncols', int32(0)), 'CRS_Matrix');
+if nargin == 0
+    varargout{1} = coder.cstructname(struct('row_ptr', coder.typeof(int32(0), [inf, 1]), ...
+        'col_ind', coder.typeof(int32(0), [inf, 1]), ...
+        'val', coder.typeof(0, [inf, 1]), 'nrows', int32(0), 'ncols', int32(0)), 'CRS_Matrix');
     return;
 elseif issparse(varargin{1})
     A = crs_createFromSparse(varargin{1});
-elseif nargin==2
-    A = crs_createFromAIJ(zeros(0, 1, 'int32'), zeros(0,1,'int32'), ...
+elseif nargin == 2
+    A = crs_createFromAIJ(zeros(0, 1, 'int32'), zeros(0, 1, 'int32'), ...
         zeros(0, 1), int32(varargin{1}), int32(varargin{2}));
-    coder.varsize('A.row_ptr', 'A.col_ind', 'A.val', [inf,1]);
+    coder.varsize('A.row_ptr', 'A.col_ind', 'A.val', [inf, 1]);
 elseif iscell(varargin{1})
     A.row_ptr = int32(varargin{1}{1});
     A.col_ind = int32(varargin{1}{2});
@@ -39,14 +39,14 @@ elseif iscell(varargin{1})
     if nargin > 1
         A.nrows = int32(varargin{2});
     else
-        A.nrows = int32(length(A.row_ptr)-1);
+        A.nrows = int32(length(A.row_ptr) - 1);
     end
     if nargin > 2
         A.ncols = int32(varargin{3});
     else
         A.ncols = int32(max(A.col_ind));
     end
-    coder.varsize('A.row_ptr', 'A.col_ind', 'A.val', [inf,1]);
+    coder.varsize('A.row_ptr', 'A.col_ind', 'A.val', [inf, 1]);
 else
     A.row_ptr = int32(varargin{1});
     A.col_ind = int32(varargin{2});
@@ -55,7 +55,7 @@ else
     if nargin > 3
         A.nrows = int32(varargin{4});
     else
-        A.nrows = int32(length(A.row_ptr)-1);
+        A.nrows = int32(length(A.row_ptr) - 1);
     end
     if nargin > 4
         A.ncols = int32(varargin{5});
@@ -63,15 +63,15 @@ else
         A.ncols = int32(max(A.col_ind));
     end
 
-    coder.varsize('A.row_ptr', 'A.col_ind', 'A.val', [inf,1]);
+    coder.varsize('A.row_ptr', 'A.col_ind', 'A.val', [inf, 1]);
 end
 
-if nargout<=1
+if nargout <= 1
     varargout{1} = A;
 else
     varargout{1} = A.row_ptr;
     varargout{2} = A.col_ind;
-    if nargout>2; varargout{3} = A.val; end
-    if nargout>3; varargout{4} = A.nrows; end
-    if nargout>4; varargout{5} = A.ncols; end
+    if nargout > 2; varargout{3} = A.val; end
+    if nargout > 3; varargout{4} = A.nrows; end
+    if nargout > 4; varargout{5} = A.ncols; end
 end

@@ -20,7 +20,7 @@ if ~isempty(coder.target)
     b = coder.opaque('PetscBool');
     errCode = coder.ceval('PetscFinalized', coder.wref(b));
 
-    toplevel = nargout>2;
+    toplevel = nargout > 2;
     if errCode && (toplevel || m2c_debug)
         m2c_error('petsc:RuntimeError', 'PetscFinalized returned error code %d\n', errCode)
     end

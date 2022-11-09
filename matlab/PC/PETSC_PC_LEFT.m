@@ -3,5 +3,5 @@ function val = PETSC_PC_LEFT
 
 coder.inline('always');
 
-val = petscGetEnum('PC_LEFT');
+val = 'left';
 end
