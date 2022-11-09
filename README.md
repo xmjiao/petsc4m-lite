@@ -66,5 +66,23 @@ your only option would be to use Octave (see below).
 NOTES ON PETSC4M-LITE IN OCTAVE
 ===============================
 
-PETSC4M-LITE works with Octave on Linux and Mac. In this case, data is passed
+petsc4m-lite works with Octave on Linux and Mac. In this case, data is passed
 through memory. It is recommended that you install Octave using Miniconda.
+
+AUTHOR and CITATION
+===================
+
+petsc4m-lite was developed and maintained by Xiangmin (Jim) Jiao
+<xiangmin.jiao@stonybrook.edu>. It was mainly used for comparative research.
+If you found the software useful, please cite the following paper.
+
+@article{ghai2019comparison,
+  title={A comparison of preconditioned Krylov subspace methods for large-scale nonsymmetric linear systems},
+  author={Ghai, Aditi and Lu, Cao and Jiao, Xiangmin},
+  journal={Numerical Linear Algebra with Applications},
+  volume={26},
+  number={1},
+  pages={e2215},
+  year={2019},
+  publisher={Wiley Online Library}
+}
