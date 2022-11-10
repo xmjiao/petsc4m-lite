@@ -78,7 +78,7 @@ end
 if ~isempty(strfind(PETSC_DIR, 'conda')) %#ok<STREMP>
     PCC = 'cc';
     CXX = 'c++';
-    LIBEXTRA = '';
+    LIBEXTRA = '-lmpi';
 else
     LIBEXTRA = '-lcurl';
 end
