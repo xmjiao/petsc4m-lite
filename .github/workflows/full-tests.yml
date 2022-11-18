@@ -1,11 +1,8 @@
 name: PETSC4M-LITE Full Test
 on:
-  pull_request:
-    branches:
-      - '**'
   push:
     branches:
-      - main
+      - '**'
 
 defaults:
   run:
